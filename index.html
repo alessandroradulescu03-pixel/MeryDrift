@@ -2,176 +2,135 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mery Drift — Scuola di drift e pista a 8 al circuito MXE45</title>
-<meta name="description" content="Impara il drift con istruttori ex campioni, noleggia un'auto preparata o la pista a 8 di Mery Drift al circuito MXE45.">
-<meta name="theme-color" content="#2E3034">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cpath d='M30,20 C36,11 52,9 53,20 C52,31 36,29 30,20 C24,11 8,9 7,20 C8,31 24,29 30,20 Z' fill='none' stroke='%23FF4F9A' stroke-width='6'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mery Drift</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Mery Drift – Drift Experience a Covo (BG), circuito Mxe.45: scuola con ex campioni, noleggio auto, noleggio pista e accessi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="site-header">
-  <nav class="nav wrap" aria-label="Principale">
-    <a class="logo" href="index.html" aria-label="Mery Drift, home"><svg viewBox="0 0 60 40" aria-hidden="true"><path d="M30,20 C36,11 52,9 53,20 C52,31 36,29 30,20 C24,11 8,9 7,20 C8,31 24,29 30,20 Z" fill="none" stroke="#FF4F9A" stroke-width="5" stroke-linejoin="round"/></svg><span>MERY<b>DRIFT</b></span></a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu"><span></span></button>
-    <ul class="nav-links" id="menu">
-      <li><a href="index.html" aria-current="page">Home</a></li>
-      <li><a href="scuola.html">Scuola</a></li>
-      <li><a href="noleggio.html">Noleggio</a></li>
-      <li><a href="accessi.html">Accessi e prezzi</a></li>
-      <li><a class="nav-cta" href="contatti.html">Prenota</a></li>
-    </ul>
-  </nav>
-</header>
-<main>
-
-<section class="hero">
+<nav class="nav" aria-label="Menu principale">
+  <div class="wrap">
+    <a href="./" class="logo"><img src="logo.webp" alt="Mery Drift" width="120" height="58"></a>
+    <ul id="menu"><li><a href="pista.html">La pista</a></li><li><a href="scuola.html">Scuola</a></li><li><a href="noleggio.html">Noleggio</a></li><li><a href="pista.html#date">Date</a></li></ul>
+    <a href="prenota.html" class="btn sm">Prenota</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">MENU</button>
+  </div>
+</nav>
+<header class="hero" id="top">
   <div class="wrap hero-grid">
-    <div>
-      <h1 class="traverso"><span class="riga">Impara a</span><span class="riga">guidare</span><span class="riga riga-rosa">di traverso.</span></h1>
-      <p class="lead">Mery Drift è la nuova area drift del circuito MXE45: una pista a 8 tutta per il traverso, istruttori che le gare le hanno vinte e auto pronte da guidare.</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="contatti.html">Prenota la prima lezione</a>
-        <a class="btn btn-ghost" href="scuola.html">Scopri la scuola</a>
-      </div>
-      <div class="hero-note">
-        <span><strong>Nessuna esperienza</strong> richiesta</span>
-        <span><strong>Auto e casco</strong> inclusi</span>
-        <span><strong>Anche con la tua auto</strong></span>
+    <div class="hero-copy">
+      <p class="eyebrow">Drift Experience · Covo (BG) · Circuito Mxe.45</p>
+      <h1><img class="hero-logo" src="logo.webp" alt="Mery Drift" width="639" height="307"></h1>
+      <p class="hero-claim"><span class="slant">Mettiti di traverso.</span></p>
+      <p class="lead">Scuola con ex campioni, auto a noleggio pronte per girare, pista in esclusiva e accessi liberi. 2.200 m² di asfalto nuovo, disegnati come un ∞ per collegare un drift all'altro.</p>
+      <div class="hero-cta">
+        <a href="prenota.html" class="btn">Prenota un turno</a>
+        <a href="scuola.html" class="btn ghost">Scopri la scuola</a>
       </div>
     </div>
-    <div class="track-wrap">
-      <svg class="track" viewBox="0 0 600 400" role="img" aria-label="La pista a forma di 8 di Mery Drift con un'auto che la percorre di traverso">
-        <path class="bordo-8" d="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z"/>
-        <path class="asfalto-8" d="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z"/>
-        <path class="mezzeria" d="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z"/>
-        <path class="gomma" d="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z" transform="translate(-6 -4)"/>
-        <path class="gomma g2" d="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z" transform="translate(6 5)"/>
-        <path class="scia" d="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z"/>
-        <g class="auto-8">
-          <g transform="rotate(-28)">
-            <rect x="-17" y="-9" width="34" height="18" rx="4" fill="#FF4F9A"/>
-            <rect x="2" y="-7" width="9" height="14" rx="2" fill="#2E3034"/>
-            <rect x="-15" y="-11" width="7" height="3" rx="1" fill="#17181A"/>
-            <rect x="-15" y="8" width="7" height="3" rx="1" fill="#17181A"/>
-            <rect x="8" y="-11" width="7" height="3" rx="1" fill="#17181A"/>
-            <rect x="8" y="8" width="7" height="3" rx="1" fill="#17181A"/>
-          </g>
-          <animateMotion dur="5.2s" begin="0.3s" repeatCount="indefinite" rotate="auto" path="M300,200 C360,110 520,90 530,200 C520,310 360,290 300,200 C240,110 80,90 70,200 C80,310 240,290 300,200 Z"/>
-        </g>
-      </svg>
-      <span class="track-label l1">Pista a 8</span>
-      <span class="track-label l2">Circuito MXE45</span>
-    </div>
+    <figure class="track">
+      <canvas id="heroTrack" role="img" aria-label="Pista a forma di infinito in 3D con un'auto in derapata, fumo e scie di gomma"></canvas>
+      <figcaption><span>Tracciato ∞</span><span>2.200 m² · asfalto nuovo</span></figcaption>
+    </figure>
   </div>
-</section>
-
-<section class="section">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Cosa puoi fare da noi</h2>
-      <p>Che tu non abbia mai tirato un freno a mano o che tu arrivi col carrello e l'auto preparata, c'è un modo di entrare in pista fatto per te.</p>
-    </div>
-    <ul class="servizi">
-      <li class="servizio"><a href="scuola.html"><h3>Scuola di drift</h3><p>Corsi dal primo traverso alle transizioni sull'8, con maestri qualificati ed ex campioni.</p><span class="freccia"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-      <li class="servizio"><a href="noleggio.html#auto"><h3>Noleggio auto</h3><p>Auto a trazione posteriore già preparate per il drift. Tu guidi, gomme e meccanica le gestiamo noi.</p><span class="freccia"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-      <li class="servizio"><a href="noleggio.html#pista"><h3>Noleggio pista</h3><p>La pista in esclusiva per il tuo gruppo, un evento aziendale, uno shooting o un video.</p><span class="freccia"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-      <li class="servizio"><a href="accessi.html"><h3>Accessi in pista</h3><p>Porta la tua auto e gira in sessioni libere a turni, con assistenza in pista.</p><span class="freccia"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-    </ul>
+    <dl class="spec">
+      <div><dt>Dove</dt><dd>Covo (BG)</dd></div>
+      <div><dt>Superficie</dt><dd>2.200 m²</dd></div>
+      <div><dt>Tracciato</dt><dd>∞</dd></div>
+      <div><dt>Istruttori</dt><dd>Ex campioni</dd></div>
+    </dl>
   </div>
-</section>
-
-<section class="section">
-  <div class="wrap split">
-    <div>
-      <h2 class="traverso">Un 8 pensato solo per il traverso</h2>
-      <p class="lead">Due curve che si inseguono, senza rettilinei in mezzo: ogni giro ti obbliga a cambiare direzione, che è esattamente quello che serve per imparare a controllare l'auto.</p>
-      <p class="muted">La pista sta dentro il circuito MXE45, con vie di fuga ampie, paddock e zona box. L'istruttore ti segue da bordo pista via radio, giro dopo giro.</p>
-      <div class="btn-row"><a class="btn btn-ghost" href="accessi.html">Vedi gli accessi</a></div>
-    </div>
-    <div class="foto larga"><span>📷 Foto aerea della pista a 8 (drone)</span></div>
-  </div>
-</section>
-
-<section class="section">
+</header>
+<div class="marquee " aria-hidden="true"><div class="mq-track"><span>Drift Experience</span><i>✦</i><span class="o">Covo · BG</span><i>✦</i><span>Tracciato ∞</span><i>✦</i><span class="o">Circuito Mxe.45</span><i>✦</i><span>Drift Experience</span><i>✦</i><span class="o">Covo · BG</span><i>✦</i><span>Tracciato ∞</span><i>✦</i><span class="o">Circuito Mxe.45</span><i>✦</i></div></div>
+<main>
+<section id="servizi">
   <div class="wrap">
-    <div class="section-head">
-      <h2>La tua prima volta, passo per passo</h2>
-      <p>Una mattina o un pomeriggio, e torni a casa che sai già tenere l'auto di traverso.</p>
+    <div class="head">
+      <div>
+        <p class="eyebrow">Cosa facciamo</p>
+        <h2><span class="slant">Quattro modi</span><br>per girare</h2>
+      </div>
+      <p class="lead">Arrivi con la tua macchina o senza, da solo o con il tuo gruppo. Scegli come vuoi vivere la pista.</p>
     </div>
-    <ol class="passi">
-      <li><h3>Prenoti</h3><p>Scegli data e pacchetto dal modulo o su WhatsApp. Ti confermiamo entro 24 ore.</p></li>
-      <li><h3>Briefing</h3><p>In paddock l'istruttore ti spiega come si comporta l'auto e cosa farai in pista.</p></li>
-      <li><h3>In pista</h3><p>Parti dal cerchio singolo, poi passi all'8 completo con l'istruttore in radio.</p></li>
-      <li><h3>Debriefing</h3><p>Rivediamo insieme i giri e ti diciamo su cosa lavorare la volta dopo.</p></li>
-    </ol>
+    <div class="services">
+      <article class="svc reveal">
+        <span class="num">SCUOLA</span>
+        <h3>Scuola drift</h3>
+        <p>Corsi per tutti i livelli con istruttori qualificati ed ex campioni. Teoria, esercizi in pista e briefing video.</p>
+        <ul><li>Dal primo testacoda al tandem</li><li>Gruppi piccoli, istruttore dedicato</li><li>Auto della scuola incluse</li></ul>
+        <a href="scuola.html" class="more">Vedi i corsi →</a>
+      </article>
+      <article class="svc reveal">
+        <span class="num">NOLEGGIO AUTO</span>
+        <h3>Noleggio auto</h3>
+        <p>Non hai una macchina preparata? Ti diamo noi un'auto da drift a trazione posteriore, controllata e pronta.</p>
+        <ul><li>Assetto, differenziale e freno idraulico</li><li>Gomme e carburante gestiti da noi</li><li>A turno o a giornata</li></ul>
+        <a href="noleggio.html" class="more">Vedi le auto →</a>
+      </article>
+      <article class="svc reveal">
+        <span class="num">NOLEGGIO PISTA</span>
+        <h3>Noleggio pista</h3>
+        <p>L'area drift tutta per te: eventi aziendali, raduni di club, shooting foto e video, giornate private.</p>
+        <ul><li>Mezza giornata o giornata intera</li><li>Paddock e area ospiti</li><li>Supporto organizzativo</li></ul>
+        <a href="noleggio.html#privata" class="more">Scopri il noleggio pista →</a>
+      </article>
+      <article class="svc reveal">
+        <span class="num">ACCESSI</span>
+        <h3>Accessi in pista</h3>
+        <p>Hai già la tua auto? Prenota un turno libero e allenati con le tue gomme e i tuoi tempi.</p>
+        <ul><li>Turni a ingresso singolo o pacchetti</li><li>Briefing di sicurezza a inizio giornata</li><li>Ingresso spettatori nei giorni evento</li></ul>
+        <a href="pista.html#date" class="more">Vedi le date →</a>
+      </article>
+    </div>
   </div>
 </section>
-
-<section class="section">
-  <div class="wrap split rev">
-    <div>
-      <h2>Maestri che le gare le hanno vinte</h2>
-      <p class="lead">Chi ti insegna ha corso e vinto nei campionati di drift. Sa spiegarti cosa succede in macchina perché l'ha vissuto mille volte.</p>
-      <div class="btn-row"><a class="btn btn-primary" href="scuola.html">Conosci gli istruttori</a></div>
-    </div>
-    <div class="foto "><span>📷 Istruttore accanto all'auto in pista</span></div>
-  </div>
-</section>
-<section class="cta-band">
+<section class="game" id="sfida">
   <div class="wrap">
-    <h2 class="traverso">Il primo traverso non si scorda.</h2>
-    <p>Scegli una data, al resto pensiamo noi: auto, casco e istruttore sono già pronti in pista.</p>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="contatti.html">Prenota la tua sessione</a>
-      <a class="btn btn-ghost" href="https://wa.me/390000000000" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
+    <div class="head">
+      <div>
+        <p class="eyebrow">Sfida l'8</p>
+        <h2>Quanto sai<br><span class="slant">tenerla?</span></h2>
+      </div>
+      <p class="lead">Tieni premuto per dare gas e mettere la macchina di traverso. Resta nella zona rosa per fare punti e far salire la combo. Se esageri, testacoda.</p>
     </div>
+    <div class="game-box" id="gameBox">
+      <canvas id="game" aria-label="Mini gioco di drift sulla pista a infinito"></canvas>
+      <div class="hud">
+        <div><span>Punti</span><b id="gScore">0</b></div>
+        <div><span>Combo</span><b id="gCombo">x1</b></div>
+        <div><span>Tempo</span><b id="gTime">30</b></div>
+        <div><span>Record</span><b id="gBest">0</b></div>
+      </div>
+      <div class="g-msg" id="gFlash" aria-live="polite"></div>
+      <div class="g-over" id="gOver">
+        <p class="eyebrow" id="gEyebrow">30 secondi · un giro di prova</p>
+        <h3 id="gTitle">Pronto?</h3>
+        <p id="gText">Da telefono tieni premuto sulla pista. Da computer tieni premuta la barra spaziatrice.</p>
+        <button class="btn" id="gStart" type="button">Gioca</button>
+      </div>
+    </div>
+    <div class="game-cta"><p>Ti è piaciuto? In pista è un'altra cosa.</p><a href="scuola.html" class="btn ghost sm">Scopri la scuola</a></div>
   </div>
 </section>
 </main>
-<div class="cordolo" aria-hidden="true"></div>
-<footer class="site-footer">
+<section class="cta-band"><div class="wrap"><h2><span class="slant">Pronto a girare?</span></h2><a href="prenota.html" class="btn">Prenota ora</a></div></section>
+<div class="marquee rev" aria-hidden="true"><div class="mq-track"><span>Scuola</span><i>✦</i><span class="o">Noleggio auto</span><i>✦</i><span>Noleggio pista</span><i>✦</i><span class="o">Accessi</span><i>✦</i><span>Scuola</span><i>✦</i><span class="o">Noleggio auto</span><i>✦</i><span>Noleggio pista</span><i>✦</i><span class="o">Accessi</span><i>✦</i></div></div>
+<footer>
   <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <a class="logo" href="index.html" aria-label="Mery Drift, home"><svg viewBox="0 0 60 40" aria-hidden="true"><path d="M30,20 C36,11 52,9 53,20 C52,31 36,29 30,20 C24,11 8,9 7,20 C8,31 24,29 30,20 Z" fill="none" stroke="#FF4F9A" stroke-width="5" stroke-linejoin="round"/></svg><span>MERY<b>DRIFT</b></span></a>
-        <p class="muted" style="margin-top:14px">Scuola di drift, noleggio auto e pista a 8 dentro il circuito MXE45.</p>
-      </div>
-      <div>
-        <h4>Il sito</h4>
-        <ul>
-          <li><a href="scuola.html">Scuola di drift</a></li>
-          <li><a href="noleggio.html">Noleggio auto e pista</a></li>
-          <li><a href="accessi.html">Accessi e prezzi</a></li>
-          <li><a href="contatti.html">Contatti e prenotazioni</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contatti</h4>
-        <ul>
-          <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
-          <li><a href="mailto:info@merydrift.it">info@merydrift.it</a></li>
-          <li><a href="https://wa.me/390000000000" target="_blank" rel="noopener">WhatsApp</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Dove siamo</h4>
-        <ul>
-          <li class="muted">Pista MXE45 — indirizzo da inserire</li>
-          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
-        </ul>
-      </div>
+    <div class="foot">
+      <div><img src="logo.webp" alt="Mery Drift" width="240" height="115" style="width:220px;height:auto;mix-blend-mode:screen"><p style="color:var(--ash);margin-top:12px;max-width:34ch;line-height:1.6">Drift Experience a Covo: scuola, noleggio e accessi al tracciato ∞ del circuito Mxe.45.</p></div>
+      <div><h4>Pagine</h4><a href="pista.html">La pista</a><a href="scuola.html">Scuola</a><a href="noleggio.html">Noleggio</a><a href="prenota.html">Prenota</a></div><div><h4>Pista</h4><p>Circuito Mxe.45</p><p style="color:var(--ash)">Covo (BG)</p></div>
+            <div><h4>Contatti e social</h4><p>Tel. da inserire</p><a href="https://www.instagram.com/merydrift/" target="_blank" rel="noopener">Instagram @merydrift</a><a href="https://www.instagram.com/mxe.45/" target="_blank" rel="noopener">Circuito @mxe.45</a></div>
     </div>
-    <div class="footer-bottom">
-      <span>© <span data-anno></span> Mery Drift — P. IVA da inserire</span>
-      <span>In collaborazione con Padania Tuning</span>
-    </div>
+    <div class="copy"><span>© 2026 Mery Drift</span><span>In collaborazione con Padania Tuning</span></div>
   </div>
 </footer>
-<a class="wa-float" href="https://wa.me/390000000000" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
-<script src="main.js"></script>
+<div class="mbar"><a href="pista.html#date" class="btn ghost">Date</a><a href="prenota.html" class="btn">Prenota</a></div>
+<script src="app.js"></script>
 </body>
 </html>

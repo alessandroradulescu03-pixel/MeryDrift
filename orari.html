@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orari e mappa · Mery Drift</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Orari di apertura, meteo in tempo reale e come arrivare a Mery Drift, dentro il circuito MXE.45 di Covo (BG).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+<nav class="nav" aria-label="Menu principale">
+  <div class="wrap">
+    <a href="./" class="logo"><img src="logo-sm.webp" alt="Mery Drift" width="120" height="48"></a>
+    <ul id="menu"><li><a href="pista.html">La pista</a></li><li><a href="scuola.html">Scuola</a></li><li><a href="noleggio.html">Noleggio</a></li><li><a href="pista.html#accessi">Prezzi</a></li><li><a href="orari.html" aria-current="page">Orari e mappa</a></li></ul>
+    <a href="https://www.instagram.com/merydrift/" class="btn sm" target="_blank" rel="noopener">Contattaci</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">MENU</button>
+  </div>
+</nav>
+<header class="page-hero"><div class="wrap">
+  <p class="crumbs"><a href="./">Home</a> / Orari e mappa</p>
+  <h1><span class="slant">Orari</span> <em>e mappa</em></h1>
+  <p class="lead">Mery Drift è dentro il circuito MXE.45 di Covo: stessi orari, stesso ingresso. Aperti da martedì a domenica, dalle 9:00 alle 17:00.</p>
+</div></header>
+<div class="checker" aria-hidden="true"></div>
+<section class="md-orari" style="padding-top:clamp(40px,6vw,72px)"><div class="wrap">
+  <div class="md-top">
+    <aside class="md-today" aria-live="polite">
+      <p class="eyebrow" id="tdLab">Oggi</p>
+      <div class="state" id="tdState">Aperti</div>
+      <p class="md-today-t" id="tdText">Orari del giorno su Instagram.</p>
+      <ol class="md-week" id="tdWeek"></ol>
+    </aside>
+    <div class="md-info">
+      <div><span class="eyebrow">Orari</span><b>Mar → Dom · 9:00–17:00</b></div>
+      <div><span class="eyebrow">Chiuso</span><b>Lunedì</b></div>
+      <div><span class="eyebrow">Spettatori</span><b>Ingresso gratuito</b></div>
+      <div><span class="eyebrow">Telefono</span><b><a href="tel:+393401020863">340 102 0863</a></b></div>
+    </div>
+  </div>
+
+  <div class="meteo wide" data-meteo>
+    <div class="m-head"><span class="eyebrow">Meteo a Covo · adesso</span><span class="m-upd">agg. <span data-m="upd">--:--</span></span></div>
+    <div class="m-row">
+      <span class="m-ico" data-m="ico"></span>
+      <span class="m-temp" data-m="temp">--°</span>
+      <div class="m-info">
+        <div class="m-desc" data-m="desc">Carico il meteo…</div>
+        <div class="m-stats">Percepita <b data-m="feel">--</b> · Vento <b data-m="wind">--</b> · Pioggia ieri <b data-m="rainy">--</b></div>
+      </div>
+    </div>
+    <p class="m-track" data-m="track"></p>
+    <div class="m-fc-head">
+      <span class="eyebrow" data-m="range">Previsioni</span>
+      <div class="m-nav"><button type="button" data-m="prev" aria-label="Giorni precedenti">‹</button><button type="button" data-m="next" aria-label="Giorni successivi">›</button></div>
+    </div>
+    <ol class="m-days" data-m="days"></ol>
+    <p class="m-src">Previsioni fino a 2 settimane · dati <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>
+  </div>
+</div></section>
+
+<section class="md-mapsec" id="mappa"><div class="wrap">
+  <div class="head"><div><p class="eyebrow">Come arrivare</p><h2><span class="slant">Covo,</span> Bergamo</h2></div>
+  <p class="lead">SP102, 24050 Covo (BG). Scegli da dove parti e vedi il percorso fino all’ingresso del circuito MXE.45.</p></div>
+  <div class="mapgrid">
+    <div class="side">
+      <p class="eyebrow">Da dove arrivi?</p>
+      <div class="cities" role="group" aria-label="Scegli la città di partenza"><button class="cbtn on" type="button" data-c="bergamo" data-t="30" data-d="Scendi verso sud, nella Bassa." data-ll="45.698,9.677"><span class="cn">Bergamo</span><span class="ct">30 min</span></button><button class="cbtn" type="button" data-c="treviglio" data-t="25" data-d="Da ovest, dritto attraverso la Bassa." data-ll="45.521,9.594"><span class="cn">Treviglio</span><span class="ct">25 min</span></button><button class="cbtn" type="button" data-c="crema" data-t="25" data-d="Da sud, risalendo verso Covo." data-ll="45.364,9.684"><span class="cn">Crema</span><span class="ct">25 min</span></button><button class="cbtn" type="button" data-c="brescia" data-t="40" data-d="Da est, attraversando il fiume Oglio." data-ll="45.541,10.219"><span class="cn">Brescia</span><span class="ct">40 min</span></button><button class="cbtn" type="button" data-c="milano" data-t="50" data-d="Da ovest, la tratta più lunga." data-ll="45.464,9.19"><span class="cn">Milano</span><span class="ct">50 min</span></button></div>
+      <form class="from-form" id="fromForm" autocomplete="off">
+        <label class="eyebrow" for="fromInput">Oppure scrivi da dove parti</label>
+        <div class="from-row">
+          <input id="fromInput" name="from" type="text" placeholder="Es. Romano di Lombardia" required>
+          <button type="submit" aria-label="Calcola percorso">Vai</button>
+        </div>
+        <button type="button" class="geo" id="geoBtn">Usa la mia posizione</button>
+        <p class="from-msg" id="fromMsg" aria-live="polite"></p>
+      </form>
+      <div class="readout" aria-live="polite">
+        <div class="from" id="roFrom">Bergamo</div>
+        <div class="arrow" aria-hidden="true"><i></i></div>
+        <div class="to">Mery Drift</div>
+        <div class="time" id="roTime"><span class="circa">circa</span><span class="seg"><b>30</b><u>min</u></span></div>
+        <p id="roText">Scendi verso sud, nella Bassa.</p>
+      </div>
+    </div>
+    <div class="mapbox">
+      <div id="map" data-lat="45.5039" data-lon="9.7911" aria-label="Mappa di Covo e dintorni"></div>
+      <span class="maplab">Percorso in auto</span>
+    </div>
+  </div>
+  <div class="navs">
+    <a class="nav-b" href="https://www.google.com/maps/dir/?api=1&amp;destination=MXE.45+Mery+Drift+Covo" target="_blank" rel="noopener"><span class="eyebrow">Apri con</span><span class="nb-t">Google Maps</span><i class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h5l7 8-7 8H7l7-8z"/></svg></i></a>
+    <a class="nav-b" href="https://maps.apple.com/?daddr=45.5039,9.7911&amp;q=Mery%20Drift" target="_blank" rel="noopener"><span class="eyebrow">Apri con</span><span class="nb-t">Apple Mappe</span><i class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h5l7 8-7 8H7l7-8z"/></svg></i></a>
+    <a class="nav-b" href="https://waze.com/ul?ll=45.5039,9.7911&amp;navigate=yes" target="_blank" rel="noopener"><span class="eyebrow">Apri con</span><span class="nb-t">Waze</span><i class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h5l7 8-7 8H7l7-8z"/></svg></i></a>
+  </div>
+</div></section>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><img src="logo-sm.webp" alt="Mery Drift" width="240" height="97" loading="lazy" style="width:220px;height:auto;mix-blend-mode:screen"><p style="color:var(--ash);margin-top:12px;max-width:34ch;line-height:1.6">Drift Experience a Covo: scuola, noleggio e accessi al tracciato ∞ del circuito Mxe.45.</p></div>
+      <div><h4>Pagine</h4><a href="pista.html">La pista</a><a href="scuola.html">Scuola</a><a href="noleggio.html">Noleggio</a><a href="orari.html">Orari e mappa</a></div><div><h4>Pista</h4><p>Circuito Mxe.45</p><p style="color:var(--ash)">Covo (BG)</p></div>
+            <div><h4>Contatti e social</h4><a href="tel:+393401020863">Tel. 340 102 0863</a><a href="https://www.instagram.com/merydrift/" target="_blank" rel="noopener">Instagram @merydrift</a><a href="https://www.instagram.com/mxe.45/" target="_blank" rel="noopener">Circuito @mxe.45</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Mery Drift</span><span>In collaborazione con Padania Tuning</span></div>
+  </div>
+</footer>
+<div class="mbar"><a href="pista.html#accessi" class="btn ghost">Prezzi</a><a href="https://www.instagram.com/merydrift/" class="btn" target="_blank" rel="noopener">Contattaci</a></div>
+<script src="app.js"></script>
+<script src="orari.js"></script>
+</body>
+</html>

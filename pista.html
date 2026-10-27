@@ -14,7 +14,7 @@
 <body>
 <nav class="nav" aria-label="Menu principale">
   <div class="wrap">
-    <a href="./" class="logo"><img src="logo.webp" alt="Mery Drift" width="120" height="58"></a>
+    <a href="./" class="logo"><img src="logo-sm.webp" alt="Mery Drift" width="120" height="48"></a>
     <ul id="menu"><li><a href="pista.html" aria-current="page">La pista</a></li><li><a href="scuola.html">Scuola</a></li><li><a href="noleggio.html">Noleggio</a></li><li><a href="pista.html#date">Date</a></li></ul>
     <a href="prenota.html" class="btn sm">Prenota</a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">MENU</button>
@@ -45,6 +45,34 @@
     </div>
   </div>
 </section>
+<section class="gallery-sec" id="galleria">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Galleria</p><h2>Foto<br><span class="slant">dal drone</span></h2></div>
+      <p class="lead">L'area drift e il circuito Mxe.45 visti dall'alto. Tocca una foto per ingrandirla.</p>
+    </div>
+    <ul class="gallery">
+      <li class="g-big"><button type="button" data-full="img/foto/pista-dall-alto.webp" data-cap="La pista a otto vista dall'alto, con i segni di gomma"><img src="img/foto/pista-dall-alto-sm.webp" alt="La pista a otto vista dall'alto, con i segni di gomma" loading="lazy" width="800" height="600"></button></li>
+      <li class="g-sm"><button type="button" data-full="img/foto/pista-e-cross.webp" data-cap="L'area drift in primo piano e il cross del circuito Mxe.45 sullo sfondo"><img src="img/foto/pista-e-cross-sm.webp" alt="L'area drift in primo piano e il cross del circuito Mxe.45 sullo sfondo" loading="lazy" width="800" height="600"></button></li>
+      <li class="g-sm"><button type="button" data-full="img/foto/circuito-panoramica.webp" data-cap="Panoramica del circuito Mxe.45 con l'area drift a destra"><img src="img/foto/circuito-panoramica-sm.webp" alt="Panoramica del circuito Mxe.45 con l'area drift a destra" loading="lazy" width="800" height="600"></button></li>
+      <li class="g-half"><button type="button" data-full="img/foto/paddock.webp" data-cap="Paddock e struttura del circuito, con l'area drift sullo sfondo"><img src="img/foto/paddock-sm.webp" alt="Paddock e struttura del circuito, con l'area drift sullo sfondo" loading="lazy" width="800" height="600"></button></li>
+      <li class="g-half"><button type="button" data-full="img/foto/vista-ingresso.webp" data-cap="Vista dall'ingresso del circuito Mxe.45"><img src="img/foto/vista-ingresso-sm.webp" alt="Vista dall'ingresso del circuito Mxe.45" loading="lazy" width="800" height="600"></button></li>
+    </ul>
+  </div>
+</section>
+<section class="videos-sec" id="video">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Video</p><h2>In volo<br><span class="slant">sulla pista</span></h2></div>
+      <p class="lead">Tre passaggi con il drone tra ingresso, paddock e area drift.</p>
+    </div>
+    <div class="videos">
+      <figure class="media-frame"><video controls muted playsinline preload="none" poster="video/drone-1.jpg"><source src="video/drone-1.mp4" type="video/mp4"></video><figcaption><span>01 · Ingresso</span><span>1:03</span></figcaption></figure>
+      <figure class="media-frame"><video controls muted playsinline preload="none" poster="video/drone-2.jpg"><source src="video/drone-2.mp4" type="video/mp4"></video><figcaption><span>02 · Area drift</span><span>0:42</span></figcaption></figure>
+      <figure class="media-frame"><video controls muted playsinline preload="none" poster="video/drone-3.jpg"><source src="video/drone-3.mp4" type="video/mp4"></video><figcaption><span>03 · Circuito</span><span>0:50</span></figcaption></figure>
+    </div>
+  </div>
+</section>
 <section class="school" id="accessi"><div class="wrap">
   <div class="head"><div><p class="eyebrow">Accessi in pista</p><h2>Vieni con<br><span class="slant">la tua auto</span></h2></div>
   <p class="lead">Turni liberi per chi ha già una macchina a trazione posteriore. Controllo tecnico e briefing di sicurezza prima di entrare. <span class="tag">Prezzi di esempio</span></p></div>
@@ -71,11 +99,20 @@
   </div>
 </section>
 <section><div class="wrap"><div class="head"><div><p class="eyebrow">Continua</p><h2><span class="slant">Scopri</span> anche</h2></div></div><div class="next"><a href="scuola.html"><span>Impara</span><b>Scuola drift</b></a><a href="noleggio.html"><span>Senza auto?</span><b>Noleggio</b></a><a href="prenota.html"><span>Fissa la data</span><b>Prenota</b></a></div></div></section>
+<section class="sponsors" aria-labelledby="sp-t"><div class="wrap">
+  <div class="sp-head"><p class="eyebrow">Partner &amp; sponsor</p><h2 id="sp-t" class="sp-title"><span class="slant">Chi spinge</span> con noi</h2></div>
+  <ul class="sp-grid">
+    <li><img src="img/sponsor/brm-metalfer.webp" alt="BRM Metalfer – smaltimento rifiuti" loading="lazy" width="700" height="258"></li>
+    <li><img src="img/sponsor/sos-micheletti.webp" alt="S.O.S. Micheletti – trasporto luxury car, Bergamo" loading="lazy" width="542" height="300"></li>
+    <li><img src="img/sponsor/aquart.webp" alt="Aquart" loading="lazy" width="700" height="179"></li>
+    <li><img src="img/sponsor/ab-motors.webp" alt="AB Motors – rimappatura centraline auto e moto" loading="lazy" width="431" height="300"></li>
+  </ul>
+</div></section>
 <div class="marquee rev" aria-hidden="true"><div class="mq-track"><span>Scuola</span><i>✦</i><span class="o">Noleggio auto</span><i>✦</i><span>Noleggio pista</span><i>✦</i><span class="o">Accessi</span><i>✦</i><span>Scuola</span><i>✦</i><span class="o">Noleggio auto</span><i>✦</i><span>Noleggio pista</span><i>✦</i><span class="o">Accessi</span><i>✦</i></div></div>
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div><img src="logo.webp" alt="Mery Drift" width="240" height="115" style="width:220px;height:auto;mix-blend-mode:screen"><p style="color:var(--ash);margin-top:12px;max-width:34ch;line-height:1.6">Drift Experience a Covo: scuola, noleggio e accessi al tracciato ∞ del circuito Mxe.45.</p></div>
+      <div><img src="logo-sm.webp" alt="Mery Drift" width="240" height="97" loading="lazy" style="width:220px;height:auto;mix-blend-mode:screen"><p style="color:var(--ash);margin-top:12px;max-width:34ch;line-height:1.6">Drift Experience a Covo: scuola, noleggio e accessi al tracciato ∞ del circuito Mxe.45.</p></div>
       <div><h4>Pagine</h4><a href="pista.html">La pista</a><a href="scuola.html">Scuola</a><a href="noleggio.html">Noleggio</a><a href="prenota.html">Prenota</a></div><div><h4>Pista</h4><p>Circuito Mxe.45</p><p style="color:var(--ash)">Covo (BG)</p></div>
             <div><h4>Contatti e social</h4><p>Tel. da inserire</p><a href="https://www.instagram.com/merydrift/" target="_blank" rel="noopener">Instagram @merydrift</a><a href="https://www.instagram.com/mxe.45/" target="_blank" rel="noopener">Circuito @mxe.45</a></div>
     </div>
@@ -83,6 +120,7 @@
   </div>
 </footer>
 <div class="mbar"><a href="pista.html#date" class="btn ghost">Date</a><a href="prenota.html" class="btn">Prenota</a></div>
+<dialog class="lightbox" id="lightbox" aria-label="Foto ingrandita"><img alt=""><p></p><button type="button" class="lb-close" aria-label="Chiudi">✕</button><button type="button" class="lb-nav lb-prev" aria-label="Foto precedente">‹</button><button type="button" class="lb-nav lb-next" aria-label="Foto successiva">›</button></dialog>
 <script src="app.js"></script>
 </body>
 </html>

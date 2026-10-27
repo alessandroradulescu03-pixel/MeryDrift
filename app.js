@@ -248,3 +248,32 @@
     })(gl);
   }
 })();
+
+// ---------- video: autoplay solo quando visibile ----------
+(function(){
+  var vids=document.querySelectorAll('video[data-autoplay]');
+  if(!vids.length)return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){vids.forEach(function(v){v.controls=true;});return;}
+  if(!('IntersectionObserver' in window)){vids.forEach(function(v){v.controls=true;});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
+    if(e.isIntersecting){if(v.preload==='none')v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true;});}
+    else v.pause();});},{threshold:.35});
+  vids.forEach(function(v){io.observe(v);});
+})();
+
+// ---------- galleria con lightbox ----------
+(function(){
+  var lb=document.getElementById('lightbox');
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.gallery button[data-full]'));
+  if(!lb||!btns.length)return;
+  var img=lb.querySelector('img'),cap=lb.querySelector('p'),cur=0;
+  function show(i){cur=(i+btns.length)%btns.length;var b=btns[cur];img.src=b.dataset.full;img.alt=b.dataset.cap;cap.textContent=b.dataset.cap+' · '+(cur+1)+'/'+btns.length;}
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);if(lb.showModal)lb.showModal();else lb.setAttribute('open','');});});
+  lb.querySelector('.lb-close').addEventListener('click',function(){lb.close();});
+  lb.querySelector('.lb-prev').addEventListener('click',function(){show(cur-1);});
+  lb.querySelector('.lb-next').addEventListener('click',function(){show(cur+1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)lb.close();});
+  document.addEventListener('keydown',function(e){if(!lb.open)return;if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)show(cur+(dx<0?1:-1));x0=null;});
+})();

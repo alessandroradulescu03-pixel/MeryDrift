@@ -216,17 +216,6 @@ p{margin:0}
 }
 
 /* CALENDARIO */
-.dates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.date{border:1px solid var(--line);padding:22px;display:grid;gap:10px;min-width:0;background:var(--tarmac)}
-.date .d{font-family:var(--font-display);font-weight:900;font-size:64px;line-height:.85;font-variant-numeric:tabular-nums}
-.date .m{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--kerb)}
-.date h3{font-size:26px}
-.date p{color:var(--ash);font-size:15px}
-.seats{height:6px;background:var(--line);position:relative;overflow:hidden}
-.seats i{position:absolute;inset:0 auto 0 0;background:var(--kerb)}
-.seats-l{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;color:var(--ash);letter-spacing:.06em}
-@media (max-width:960px){.dates{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.dates{grid-template-columns:1fr}}
 
 /* PRENOTA */
 .book{background:var(--tarmac);border-top:1px solid var(--line)}

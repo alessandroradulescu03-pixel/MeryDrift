@@ -61,7 +61,7 @@
       attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     map.attributionControl.setPrefix(false);
-    var pin=L.divIcon({className:'mxpin',html:'<span class="r"></span><span class="r r2"></span><b>∞</b><i></i>',iconSize:[60,80],iconAnchor:[30,74]});
+    var pin=L.divIcon({className:'mxpin',html:'<span class="r"></span><span class="r r2"></span><b><img src="logo-sm.webp" alt="Mery Drift"></b><i></i>',iconSize:[120,80],iconAnchor:[60,74]});
     L.marker(dest,{icon:pin,zIndexOffset:1000,title:'Mery Drift · MXE.45'}).addTo(map);
     btns.forEach(function(b){
       var ll=b.dataset.ll.split(',').map(Number);

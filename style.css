@@ -51,6 +51,7 @@ p{margin:0}
 .nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
 .nav ul a{text-decoration:none;font-weight:600;font-size:15px;color:var(--ash);text-transform:uppercase;letter-spacing:.06em}
 .nav ul a:hover{color:var(--smoke)}
+@media (min-width:881px) and (max-width:1040px){.nav ul{gap:16px}.nav ul a{font-size:14px}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;text-transform:uppercase;font-size:19px;letter-spacing:.04em;text-decoration:none;padding:14px 26px;border:2px solid var(--kerb);background:var(--kerb);color:#fff;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);cursor:pointer;transition:background .2s,transform .2s}
 .btn:hover{background:var(--kerb-dim);transform:translateX(3px)}
 .btn.ghost{background:transparent;color:var(--smoke);border-color:var(--smoke)}

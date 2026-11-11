@@ -1,5 +1,151 @@
 <!doctype html>
-<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mery Drift</title><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=./"><link rel="canonical" href="./">
-<style>body{background:#0b0b0e;color:#eceae6;font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0}a{color:#ec1e8f}</style>
-</head><body><p><a href="./">Vai al sito Mery Drift</a></p></body></html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prenota · Mery Drift</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Scegli la giornata dal calendario, blocca il tuo posto in pista e paga online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="prenota.css">
+</head>
+<body>
+<nav class="nav" aria-label="Menu principale">
+  <div class="wrap">
+    <a href="./" class="logo"><img src="logo-sm.webp" alt="Mery Drift" width="120" height="48"></a>
+    <ul id="menu"><li><a href="./">Home</a></li><li><a href="pista.html">La pista</a></li><li><a href="scuola.html">Scuola</a></li><li><a href="noleggio.html">Noleggio</a></li><li><a href="pista.html#accessi">Prezzi</a></li><li><a href="orari.html">Orari e mappa</a></li></ul>
+    <a href="prenota.html" class="btn sm" aria-current="page">Prenota</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">MENU</button>
+  </div>
+</nav>
+<header class="page-hero"><div class="wrap">
+  <p class="crumbs"><a href="./">Home</a> / Prenota</p>
+  <h1><span class="slant">Pre</span><em>nota</em></h1>
+  <p class="lead">Scegli la giornata, blocca il tuo posto e paga online. Al resto pensiamo noi in pista.</p>
+</div></header>
+<div class="checker" aria-hidden="true"></div>
+
+<section class="book" id="calendario">
+  <div class="wrap">
+    <div id="esito" hidden></div>
+    <div class="head">
+      <div>
+        <p class="eyebrow">Calendario</p>
+        <h2>Scegli la<br><span class="slant">tua data</span></h2>
+      </div>
+      <p class="lead">Le giornate in programma con i posti ancora liberi, aggiornati in tempo reale.</p>
+    </div>
+
+    <div class="cal-grid">
+      <div class="cal-col">
+        <div class="cal" id="cal" aria-busy="true">
+          <div class="cal-head">
+            <button type="button" id="calPrev" aria-label="Mese precedente">←</button>
+            <p id="calMonth" aria-live="polite">&nbsp;</p>
+            <button type="button" id="calNext" aria-label="Mese successivo">→</button>
+          </div>
+          <div class="cal-dow" aria-hidden="true"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+          <div class="cal-days" id="calDays"></div>
+          <p class="cal-state" id="calState">Carico il calendario…</p>
+        </div>
+        <ul class="cal-legend" aria-hidden="true">
+          <li><i class="lg free"></i>Posti liberi</li>
+          <li><i class="lg few"></i>Ultimi posti</li>
+          <li><i class="lg full"></i>Completo</li>
+        </ul>
+      </div>
+
+      <div class="cal-side">
+        <div class="pick-empty" id="pickEmpty">
+          <p class="eyebrow">Prenotazione</p>
+          <h3>Tocca una data</h3>
+          <p>Le giornate prenotabili sono evidenziate nel calendario. Scegline una per vedere prezzo e posti liberi.</p>
+        </div>
+
+        <form id="prenForm" hidden novalidate>
+          <div class="pick">
+            <p class="eyebrow">Data scelta</p>
+            <h3 id="pkDate"></h3>
+            <div class="pick-kv">
+              <div><span>Prezzo a persona</span><b id="pkPrice"></b></div>
+              <div><span>Posti liberi</span><b id="pkSeats"></b></div>
+            </div>
+          </div>
+
+          <fieldset id="pkTurni" hidden>
+            <legend>Turno</legend>
+            <div class="chip-row" id="pkTurniRow"></div>
+          </fieldset>
+
+          <div class="field">
+            <label for="f-nome">Nome e cognome</label>
+            <input id="f-nome" name="nome" type="text" autocomplete="name" required maxlength="80">
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="120">
+            </div>
+            <div class="field">
+              <label for="f-tel">Telefono</label>
+              <input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20">
+            </div>
+          </div>
+
+          <div class="field">
+            <label id="postiLab">Quanti posti</label>
+            <div class="stepper" role="group" aria-labelledby="postiLab">
+              <button type="button" id="postiMeno" aria-label="Un posto in meno">−</button>
+              <output id="postiVal" aria-live="polite">1</output>
+              <button type="button" id="postiPiu" aria-label="Un posto in più">+</button>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="sum-head"><span>Riepilogo</span><span id="sumCalc"></span></div>
+            <div class="sum-total"><span>Totale</span><b id="sumTot"></b></div>
+          </div>
+
+          <p class="err" id="prenErr" role="alert" hidden></p>
+          <button type="submit" class="btn" id="prenBtn">Vai al pagamento</button>
+          <p class="hint">Paghi con carta in modo sicuro. Il posto resta bloccato a tuo nome mentre completi il pagamento.</p>
+        </form>
+      </div>
+    </div>
+
+    <div class="cal-next" id="calNextWrap" hidden>
+      <p class="eyebrow">Prossime date</p>
+      <ul class="cal-list" id="calList"></ul>
+    </div>
+  </div>
+</section>
+
+<div class="kerb thin" aria-hidden="true"></div>
+<section><div class="wrap">
+  <div class="head"><div><p class="eyebrow">Come funziona</p><h2>Tre <span class="slant">mosse</span></h2></div></div>
+  <ol class="steps cal-steps">
+    <li><div><strong>Scegli la data</strong>Nel calendario vedi le giornate aperte e quanti posti restano.</div></li>
+    <li><div><strong>Paga online</strong>Inserisci i tuoi dati e completa il pagamento: il posto è tuo.</div></li>
+    <li><div><strong>Vieni in pista</strong>Presentati al circuito Mxe.45 di Covo per il briefing prima di entrare.</div></li>
+  </ol>
+</div></section>
+
+<div class="marquee rev" aria-hidden="true"><div class="mq-track"><span>Scuola</span><i>✦</i><span class="o">Noleggio auto</span><i>✦</i><span>Noleggio pista</span><i>✦</i><span class="o">Accessi</span><i>✦</i><span>Scuola</span><i>✦</i><span class="o">Noleggio auto</span><i>✦</i><span>Noleggio pista</span><i>✦</i><span class="o">Accessi</span><i>✦</i></div></div>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><img src="logo-sm.webp" alt="Mery Drift" width="240" height="97" loading="lazy" style="width:220px;height:auto;mix-blend-mode:screen"><p style="color:var(--ash);margin-top:12px;max-width:34ch;line-height:1.6">Drift Experience a Covo: scuola, noleggio e accessi al tracciato ∞ del circuito Mxe.45.</p></div>
+      <div><h4>Pagine</h4><a href="./">Home</a><a href="pista.html">La pista</a><a href="scuola.html">Scuola</a><a href="noleggio.html">Noleggio</a><a href="prenota.html">Prenota</a><a href="orari.html">Orari e mappa</a></div><div><h4>Pista</h4><p>Circuito Mxe.45</p><p style="color:var(--ash)">Covo (BG)</p></div>
+      <div><h4>Contatti e social</h4><a href="tel:+393401020863">Tel. 340 102 0863</a><a href="https://www.instagram.com/merydrift/" target="_blank" rel="noopener">Instagram @merydrift</a><a href="https://www.instagram.com/mxe.45/" target="_blank" rel="noopener">Circuito @mxe.45</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Mery Drift</span><span>In collaborazione con Padania Tuning</span></div>
+  </div>
+</footer>
+<div class="mbar"><a href="pista.html#accessi" class="btn ghost">Prezzi</a><a href="https://www.instagram.com/merydrift/" class="btn" target="_blank" rel="noopener">Contattaci</a></div>
+<script src="app.js"></script>
+<script src="prenota.js"></script>
+</body>
+</html>

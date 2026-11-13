@@ -128,7 +128,7 @@ ${riga("Data", esc(quando))}
 ${riga("Posti", String(posti))}
 ${riga(pagata ? "Pagato online" : "Da incassare", totale)}
 </table>
-${SITO ? `<p style="margin:20px 0 0"><a href="${esc(SITO)}/admin.html" style="color:#ec1e8f;font-weight:bold">Apri l'area riservata →</a></p>` : ""}`);
+${SITO ? `<p style="margin:20px 0 0"><a href="${esc(SITO)}/admin/" style="color:#ec1e8f;font-weight:bold">Apri l'area riservata →</a></p>` : ""}`);
     okProp = await invia(PROPRIETARI, `Nuova prenotazione · ${esc(p.nome)} · ${quando}`, prop, String(p.email));
   }
 

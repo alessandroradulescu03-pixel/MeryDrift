@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prenotazioni · Mery Drift</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../admin.css">
+</head>
+<body class="admin">
+<nav class="nav" aria-label="Area riservata">
+  <div class="wrap">
+    <a href="../" class="logo"><img src="../logo-sm.webp" alt="Mery Drift" width="120" height="48"></a>
+    <button type="button" class="ad-out" id="adOut" hidden>Esci</button>
+  </div>
+</nav>
+
+<!-- ACCESSO -->
+<section id="adLogin" class="ad-login" hidden>
+  <div class="wrap">
+    <form id="loginForm" novalidate>
+      <h1>Prenotazioni</h1>
+      <p class="ad-intro">Scrivi la tua email e la tua password, poi premi <strong>Entra</strong>.</p>
+      <div class="field">
+        <label for="lg-email">La tua email</label>
+        <input id="lg-email" type="email" autocomplete="username" inputmode="email" required>
+      </div>
+      <div class="field">
+        <label for="lg-pass">La tua password</label>
+        <input id="lg-pass" type="password" autocomplete="current-password" required>
+      </div>
+      <label class="ad-check"><input type="checkbox" id="lg-show"> Mostra la password</label>
+      <p class="ad-err" id="loginErr" role="alert" hidden></p>
+      <button type="submit" class="ad-big" id="loginBtn">Entra</button>
+    </form>
+  </div>
+</section>
+
+<!-- AREA -->
+<main id="adApp" hidden>
+  <section class="ad-main">
+    <div class="wrap">
+      <div class="ad-top">
+        <h1>Prenotazioni</h1>
+        <div class="ad-top-btns">
+          <button type="button" class="ad-big" id="btnNuova">+ Aggiungi una giornata</button>
+          <button type="button" class="ad-btn" id="btnAggiorna">↻ Aggiorna</button>
+        </div>
+      </div>
+
+      <form id="nuovaForm" class="ad-new" hidden novalidate>
+        <h2>Nuova giornata</h2>
+        <div class="ad-fields">
+          <div class="field"><label for="ng-data">Che giorno?</label><input id="ng-data" type="date" required></div>
+          <div class="field"><label for="ng-titolo">Nome della giornata</label><input id="ng-titolo" type="text" value="Open day drift" maxlength="60" required></div>
+          <div class="field"><label for="ng-posti">Quanti posti?</label><input id="ng-posti" type="number" min="1" max="500" value="20" inputmode="numeric" required></div>
+          <div class="field"><label for="ng-prezzo">Prezzo a persona (in euro)</label><input id="ng-prezzo" type="text" value="50" inputmode="decimal" required></div>
+        </div>
+        <p class="ad-err" id="nuovaErr" role="alert" hidden></p>
+        <div class="ad-row-btns">
+          <button type="submit" class="ad-big">Salva la giornata</button>
+          <button type="button" class="ad-btn" id="nuovaAnnulla">Lascia stare</button>
+        </div>
+      </form>
+
+      <p class="ad-msg" id="adMsg" aria-live="polite"></p>
+      <div id="adDays" class="ad-days"></div>
+
+      <div class="ad-pastbox">
+        <button type="button" class="ad-btn" id="btnPassate">Vedi le giornate passate</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="stampa" class="ad-print" aria-hidden="true"></div>
+<div class="ad-toast" id="adToast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script>
+<script src="../admin.js"></script>
+</body>
+</html>

@@ -25,6 +25,15 @@
   function occupati(g){return g.prenotazioni.filter(valida).reduce(function(s,p){return s+p.posti;},0);}
   function centesimi(v){var n=parseFloat(String(v).replace(/\s|€/g,'').replace(',','.'));return isFinite(n)&&n>=0?Math.round(n*100):null;}
   function posti(n){return n+(n===1?' posto':' posti');}
+  function quando(ts){
+    if(!ts)return '';
+    try{
+      var d=new Date(ts),o={timeZone:'Europe/Rome'};
+      var g=new Intl.DateTimeFormat('it-IT',Object.assign({weekday:'long',day:'numeric',month:'long'},o)).format(d);
+      var h=new Intl.DateTimeFormat('it-IT',Object.assign({hour:'2-digit',minute:'2-digit'},o)).format(d);
+      return g+' alle '+h;
+    }catch(e){return new Date(ts).toLocaleString('it-IT');}
+  }
 
   var toastT;
   function toast(msg,ko){var t=$('adToast');t.textContent=msg;t.className='ad-toast'+(ko?' ko':'');t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true;},3500);}
@@ -153,6 +162,7 @@
     var info=el('div','ad-p-info');
     info.appendChild(el('p','ad-p-name',x.nome));
     info.appendChild(el('p','ad-p-seats',posti(x.posti)+' · '+euro(x.posti*g.prezzo_cent)));
+    if(x.creata_il)info.appendChild(el('p','ad-p-when','🕒 Ha prenotato '+quando(x.creata_il)));
     li.appendChild(info);
 
     var contatti=el('div','ad-p-contact');
@@ -271,9 +281,9 @@
   function stampa(g){
     var s=$('stampa');s.textContent='';
     s.appendChild(el('h1',null,'Mery Drift · '+giornoAnno(g.data)));
-    s.appendChild(el('p',null,g.titolo+' · '+posti(occupati(g))+' prenotati su '+g.posti_totali));
+    s.appendChild(el('p',null,g.titolo+' · Posti prenotati: '+occupati(g)+' su '+g.posti_totali));
     var tb=el('table'),hr=el('tr');
-    ['','Nome','Telefono','Posti','Da pagare','Presente'].forEach(function(h){hr.appendChild(el('th',null,h));});
+    ['N.','Nome','Telefono','Posti','Da pagare','Presente'].forEach(function(h){hr.appendChild(el('th',null,h));});
     tb.appendChild(hr);
     righe(g).forEach(function(x,i){
       var tr=el('tr');
@@ -284,9 +294,9 @@
     window.print();
   }
   function esporta(g){
-    var r=[['Data','Giornata','Nome','Telefono','Email','Posti','Importo','Pagato']];
+    var r=[['Data','Giornata','Nome','Telefono','Email','Posti','Importo','Pagato','Prenotata il']];
     righe(g).forEach(function(x){
-      r.push([giornoAnno(g.data),g.titolo,x.nome,x.telefono||'',x.email,x.posti,(x.posti*g.prezzo_cent/100).toFixed(2).replace('.',','),x.stato==='pagata'?'Sì, online':x.pagato_in_pista?'Sì':'No']);
+      r.push([giornoAnno(g.data),g.titolo,x.nome,x.telefono||'',x.email,x.posti,(x.posti*g.prezzo_cent/100).toFixed(2).replace('.',','),x.stato==='pagata'?'Sì, online':x.pagato_in_pista?'Sì':'No',quando(x.creata_il)]);
     });
     var csv='﻿'+r.map(function(row){return row.map(function(v){v=String(v);if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';}).join(';');}).join('\r\n');
     var a=el('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));

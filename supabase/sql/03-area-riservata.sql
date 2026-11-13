@@ -1,7 +1,7 @@
--- Mery Drift · area riservata per i proprietari
--- Da lanciare una volta nel SQL Editor di Supabase.
+-- Prenotazioni · 3/3 · area riservata per i proprietari
+-- Da lanciare una volta, tutto insieme, dopo 02-prenota.sql.
 -- ⚠️ Prima di Run cambia TUA-EMAIL@esempio.it in fondo con l'email
---    dell'account che userai per entrare in admin.html.
+--    dell'account che userai per entrare in /admin.
 
 -- 1. chi può entrare nell'area riservata
 create table if not exists amministratori (email text primary key);

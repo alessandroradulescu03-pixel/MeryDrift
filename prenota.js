@@ -1,9 +1,8 @@
-/* Pagina Prenota: legge le giornate da Supabase, disegna il calendario e avvia il pagamento */
+/* Pagina Prenota: legge le giornate da Supabase, disegna il calendario e salva le prenotazioni */
 (function(){
   // ---------- configurazione ----------
   var SB_URL='https://dcjqhleaevdjijjdqovs.supabase.co';
   var SB_KEY='sb_publishable_1Fhv9LdqgTjoqqBKdKYGIg_AONI8Flr'; // chiave pubblica: può stare nel sito
-  var FN_PRENOTA=SB_URL+'/functions/v1/crea-prenotazione';      // funzione che crea il pagamento Stripe
   var POCHI=5; // sotto questa soglia il giorno diventa "ultimi posti"
 
   var MESI=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
@@ -197,22 +196,37 @@
     var btn=$('prenBtn'),testo=btn.textContent;
     btn.disabled=true;btn.textContent='Un attimo…';
     function fine(){btn.disabled=false;btn.textContent=testo;}
-    fetch(FN_PRENOTA,{
+    var scelta=sel;
+    fetch(SB_URL+'/rest/v1/rpc/prenota_posti',{
       method:'POST',
       headers:{'apikey':SB_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({giornata_id:sel.id,nome:nome,email:email,telefono:tel,posti:posti})
+      body:JSON.stringify({p_giornata:scelta.id,p_nome:nome,p_email:email,p_telefono:tel,p_posti:posti})
     }).then(function(r){
-      return r.json().catch(function(){return {};}).then(function(j){return {s:r.status,ok:r.ok,j:j};});
+      return r.json().catch(function(){return {};}).then(function(j){return {ok:r.ok,j:j};});
     }).then(function(x){
-      if(x.ok&&x.j&&x.j.url){location.href=x.j.url;return;}
       fine();
-      if(x.s===409){errore('Qualcuno ha appena preso gli ultimi posti. Ho aggiornato il calendario: controlla quanti ne restano.');carica();return;}
-      if(x.s===404){errore('Il pagamento online è in fase di attivazione. Per prenotare questa data scrivici su Instagram o chiamaci al 340 102 0863.');return;}
-      errore('Non sono riuscito ad avviare il pagamento. Riprova tra poco.');
+      var msg=(x.j&&x.j.message)||'';
+      if(x.ok){
+        confermata(scelta,posti,nome);
+        $('prenForm').reset();sel=null;posti=1;
+        carica();return;
+      }
+      if(msg.indexOf('posti_esauriti')>-1){errore('Qualcuno ha appena preso gli ultimi posti. Ho aggiornato il calendario: controlla quanti ne restano.');carica();return;}
+      if(msg.indexOf('giornata_non_trovata')>-1){errore('Questa giornata non è più prenotabile. Ho aggiornato il calendario.');carica();return;}
+      errore('Non sono riuscito a salvare la prenotazione. Riprova tra poco.');
     }).catch(function(){
-      fine();errore('Connessione assente o servizio non raggiungibile. Riprova tra poco.');
+      fine();errore('Il servizio non risponde in questo momento. Riprova tra poco, oppure chiamaci al 340 102 0863.');
     });
   });
+
+  function confermata(g,n,nome){
+    var box=$('esito');box.textContent='';box.className='ok';
+    box.appendChild(el('p','eyebrow','Prenotazione confermata'));
+    box.appendChild(el('h3',null,'Ci vediamo in pista'));
+    box.appendChild(el('p',null,nome+', abbiamo salvato '+n+(n===1?' posto':' posti')+' per '+lunga(g.data)+' ('+g.titolo+').'));
+    box.hidden=false;
+    box.scrollIntoView({behavior:'smooth',block:'start'});
+  }
 
   disegna();
   carica();

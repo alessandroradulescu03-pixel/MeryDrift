@@ -1,0 +1,88 @@
+/* Area riservata Mery Drift */
+.admin .nav .wrap{gap:12px}
+.ad-who{margin-left:auto;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--ash);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.admin .nav .btn.sm{display:inline-flex}
+
+/* login */
+.ad-login{min-height:calc(100vh - 70px);display:grid;align-items:center;background:radial-gradient(55% 70% at 85% 15%,rgba(236,30,143,.16),transparent 70%),radial-gradient(45% 70% at 5% 100%,rgba(26,51,217,.24),transparent 70%),var(--asphalt)}
+.ad-login form{max-width:440px;margin:0 auto;border-top:5px solid var(--kerb)}
+.ad-login h1{font-size:clamp(56px,12vw,88px);font-weight:900;line-height:.85;margin-bottom:6px}
+.ad-login h1 .slant{transform:skewX(-10deg)}
+.ad-login h1 em{font-style:normal;color:var(--blue-hi)}
+.ad-login .btn{width:100%}
+
+.ad-hero{padding-block:clamp(40px,6vw,72px) clamp(28px,4vw,40px)}
+.ad-hero h1{font-size:clamp(56px,11vw,120px)}
+.ad-main{background:var(--tarmac);padding-top:clamp(32px,5vw,56px)}
+.ad-stats{margin-top:0;border-color:var(--line)}
+.ad-stats dd{font-size:clamp(28px,4vw,44px)}
+.ad-stats div:last-child dd{color:var(--blue-hi)}
+
+.ad-bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin:28px 0 18px}
+.ad-past{margin:0;align-items:center}
+.ad-link{font:inherit;font-size:15px;cursor:pointer;background:none;border:0;padding:6px 0;color:var(--ash);text-decoration:underline;text-underline-offset:3px}
+.ad-link:hover{color:var(--smoke)}
+.ad-link.danger{color:#ff5a6e}
+.ad-msg{color:var(--ash);margin:8px 0}
+.ad-msg:empty{display:none}
+
+.ad-new{margin-bottom:22px;border-top:5px solid var(--blue)}
+.ad-grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ad-grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+@media (max-width:800px){.ad-grid4{grid-template-columns:1fr 1fr}.ad-grid3{grid-template-columns:1fr 1fr}.ad-grid3 .field:first-child{grid-column:1/-1}}
+.ad-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
+
+/* giornate */
+.ad-days{display:grid;gap:12px}
+.ad-day{background:var(--asphalt);border:1px solid var(--line);border-left:5px solid var(--kerb)}
+.ad-day.off{border-left-color:var(--line)}
+.ad-day.past{opacity:.75}
+.ad-day[open]{border-left-color:var(--blue-hi)}
+.ad-day summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:16px 18px;cursor:pointer;list-style:none}
+.ad-day summary::after{display:none}
+.ad-day summary::-webkit-details-marker{display:none}
+.ad-date{font-family:var(--font-display);font-weight:900;font-size:46px;line-height:.85;color:var(--kerb);transform:skewX(-9deg);text-align:center;min-width:52px;font-variant-numeric:tabular-nums}
+.ad-date small{display:block;font-family:var(--font-mono);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);margin-top:4px}
+.ad-day.off .ad-date{color:var(--ash)}
+.ad-info{display:grid;gap:2px;min-width:0}
+.ad-info b{font-family:var(--font-display);font-weight:800;font-size:24px;text-transform:uppercase;line-height:1.05;overflow-wrap:anywhere}
+.ad-info span{font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--ash);text-transform:none;letter-spacing:0}
+.ad-badges{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.ad-badge{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;padding:5px 9px;border:1px solid var(--kerb);color:var(--smoke);background:rgba(236,30,143,.12);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ad-badge.few{border-color:#ffc65c;background:rgba(255,198,92,.12)}
+.ad-badge.full{border-color:var(--blue-hi);background:rgba(91,120,255,.16)}
+.ad-badge.off{border-color:var(--line);background:none;color:var(--ash);text-transform:uppercase}
+@media (max-width:560px){
+  .ad-day summary{grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:14px}
+  .ad-badges{grid-column:2;justify-content:flex-start}
+}
+
+.ad-body{padding:0 18px 20px;display:grid;gap:16px;border-top:1px solid var(--line);padding-top:16px}
+.ad-meter{height:8px;background:var(--tarmac);border:1px solid var(--line);overflow:hidden}
+.ad-meter i{display:block;height:100%;background:linear-gradient(90deg,var(--kerb),var(--blue))}
+.ad-sub{color:var(--ash);font-size:15px;margin-top:-8px}
+.ad-empty{color:var(--ash);border:1px dashed var(--line);padding:16px}
+
+/* prenotazioni */
+.ad-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ad-row{background:var(--tarmac);border:1px solid var(--line);padding:14px 16px;display:grid;gap:6px}
+.ad-row.st-annullata,.ad-row.st-scaduta{opacity:.5}
+.ad-row.st-annullata b{text-decoration:line-through}
+.ad-row-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.ad-row-top b{font-weight:600;font-size:18px;overflow-wrap:anywhere}
+.ad-seats{font-family:var(--font-display);font-weight:900;font-size:24px;text-transform:uppercase;color:var(--blue-hi);white-space:nowrap}
+.ad-contacts{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:15px}
+.ad-contacts a{color:var(--smoke);text-decoration-color:var(--line);text-underline-offset:3px;overflow-wrap:anywhere}
+.ad-contacts a:hover{color:var(--kerb)}
+.ad-row-bot{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ash)}
+.ad-state{color:var(--kerb)}
+.st-pagata .ad-state{color:#5be38f}
+.ad-row-act{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.ad-row-act .check{align-items:center;font-size:15px;color:var(--smoke)}
+.ad-paid{color:#5be38f;font-size:15px}
+
+.ad-edit{background:var(--tarmac);padding:16px;gap:12px}
+.ad-edit .btn{justify-self:start}
+
+.ad-toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--smoke);color:var(--asphalt);font-weight:600;padding:12px 18px;max-width:calc(100% - 32px);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.ad-toast.ko{background:#ff5a6e;color:#fff}

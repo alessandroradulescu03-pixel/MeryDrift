@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Area riservata · Mery Drift</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+<nav class="nav" aria-label="Area riservata">
+  <div class="wrap">
+    <a href="./" class="logo"><img src="logo-sm.webp" alt="Mery Drift" width="120" height="48"></a>
+    <p class="ad-who" id="adWho"></p>
+    <button type="button" class="btn sm ghost" id="adOut" hidden>Esci</button>
+  </div>
+</nav>
+
+<!-- LOGIN -->
+<section id="adLogin" class="ad-login" hidden>
+  <div class="wrap">
+    <form id="loginForm" novalidate>
+      <p class="eyebrow">Area riservata</p>
+      <h1><span class="slant">Box</span> <em>staff</em></h1>
+      <div class="field">
+        <label for="lg-email">Email</label>
+        <input id="lg-email" type="email" autocomplete="username" inputmode="email" required>
+      </div>
+      <div class="field">
+        <label for="lg-pass">Password</label>
+        <input id="lg-pass" type="password" autocomplete="current-password" required>
+      </div>
+      <p class="err" id="loginErr" role="alert" hidden></p>
+      <button type="submit" class="btn" id="loginBtn">Entra</button>
+    </form>
+  </div>
+</section>
+
+<!-- AREA -->
+<main id="adApp" hidden>
+  <header class="page-hero ad-hero"><div class="wrap">
+    <p class="crumbs">Area riservata</p>
+    <h1><span class="slant">Pre</span><em>notazioni</em></h1>
+  </div></header>
+  <div class="checker" aria-hidden="true"></div>
+
+  <section class="ad-main">
+    <div class="wrap">
+      <dl class="spec ad-stats" id="adStats">
+        <div><dt>Giornate in programma</dt><dd id="stGiornate">–</dd></div>
+        <div><dt>Posti prenotati</dt><dd id="stPrenotati">–</dd></div>
+        <div><dt>Posti liberi</dt><dd id="stLiberi">–</dd></div>
+        <div><dt>Da incassare</dt><dd id="stIncasso">–</dd></div>
+      </dl>
+
+      <div class="ad-bar">
+        <button type="button" class="btn" id="btnNuova">+ Nuova giornata</button>
+        <label class="check ad-past"><input type="checkbox" id="chkPassate"> Mostra giornate passate</label>
+        <button type="button" class="ad-link" id="btnAggiorna">↻ Aggiorna</button>
+      </div>
+
+      <form id="nuovaForm" class="ad-new" hidden novalidate>
+        <p class="eyebrow">Nuova giornata</p>
+        <div class="ad-grid4">
+          <div class="field"><label for="ng-data">Data</label><input id="ng-data" type="date" required></div>
+          <div class="field"><label for="ng-titolo">Titolo</label><input id="ng-titolo" type="text" value="Open day drift" maxlength="60" required></div>
+          <div class="field"><label for="ng-posti">Posti</label><input id="ng-posti" type="number" min="1" max="500" value="20" inputmode="numeric" required></div>
+          <div class="field"><label for="ng-prezzo">Prezzo a persona (€)</label><input id="ng-prezzo" type="text" value="50" inputmode="decimal" required></div>
+        </div>
+        <p class="err" id="nuovaErr" role="alert" hidden></p>
+        <div class="ad-actions">
+          <button type="submit" class="btn">Aggiungi giornata</button>
+          <button type="button" class="ad-link" id="nuovaAnnulla">Annulla</button>
+        </div>
+      </form>
+
+      <p class="ad-msg" id="adMsg" aria-live="polite"></p>
+      <div id="adDays" class="ad-days"></div>
+    </div>
+  </section>
+</main>
+
+<div class="ad-toast" id="adToast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

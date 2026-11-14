@@ -36,9 +36,18 @@ const INSTAGRAM = "https://www.instagram.com/merydrift/";
 const ORARI = "9:00 – 17:00";
 
 // ---------- colori (gli stessi del sito) ----------
-const NERO = "#0b0b0e", ASFALTO = "#16161b", LINEA = "#2a2a33", FUMO = "#eceae6",
-  CENERE = "#9ca1a9", ROSA = "#ec1e8f", BLU = "#1a33d9", BLU_CHIARO = "#5b78ff",
-  VERDE = "#5be38f", GIALLO = "#ffc65c";
+// La mail parte CHIARA. Chi ha il tema scuro (Apple Mail, iPhone, Outlook) la vede SCURA
+// grazie alla tabella TEMA_SCURO qui sotto; Gmail col tema scuro la scurisce da solo.
+const NERO = "#f3f2ef", ASFALTO = "#fefefe", LINEA = "#dedcd7", FUMO = "#16161b",
+  CENERE = "#6b6f78", ROSA = "#e0157f", BLU = "#1a33d9", BLU_CHIARO = "#1b34d8",
+  VERDE = "#12874f", GIALLO = "#9a6200", TESTO_2 = "#3d4048", BOX_BLU = "#eef0ff";
+const TESTATA = "#0b0b0e"; // fascia del logo: scura in entrambi i temi (il logo ha lo sfondo nero)
+// colore chiaro -> colore col tema scuro
+const TEMA_SCURO: Record<string, string> = {
+  [NERO]: "#0b0b0e", [ASFALTO]: "#16161b", [LINEA]: "#2a2a33", [FUMO]: "#eceae6",
+  [CENERE]: "#9ca1a9", [ROSA]: "#ec1e8f", [BLU_CHIARO]: "#5b78ff",
+  [VERDE]: "#5be38f", [GIALLO]: "#ffc65c", [TESTO_2]: "#c9ccd2", [BOX_BLU]: "#141a3a",
+};
 const DISPLAY = "'Big Shoulders Display','Arial Narrow',Impact,'Helvetica Neue',Arial,sans-serif";
 const TESTO = "Barlow,'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono',Menlo,Consolas,'Courier New',monospace";
@@ -86,7 +95,7 @@ const cordolo = () => {
 const pulsante = (testo: string, link: string, sfondo: string, colore = "#ffffff", bordo = sfondo) =>
   `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td align="center" bgcolor="${sfondo}" style="background:${sfondo};border:2px solid ${bordo}">
-<a href="${link}" target="_blank" style="display:block;padding:15px 14px;font-family:${TESTO};font-size:17px;font-weight:700;color:${colore};text-decoration:none">${testo}</a>
+<a href="${link}" target="_blank" style="display:block;padding:15px 14px;font-family:${TESTO};font-size:17px;font-weight:700;color:${colore};text-decoration:none">${colore === "#ffffff" ? `<span class="gm-s"><span class="gm-d">${testo}</span></span>` : testo}</a>
 </td></tr></table>`;
 
 const riga = (k: string, v: string, ultima = false) =>
@@ -98,14 +107,55 @@ const dueBottoni = (a: string, b: string) => `<table role="presentation" width="
 <td class="col col2" width="50%" valign="top" style="padding:0 0 0 5px">${b}</td>
 </tr></table>`;
 
+// ---------- tema scuro ----------
+// a ogni elemento con un colore della palette aggiunge una classe (es. tc-16161b),
+// che col tema scuro viene sovrascritta dal CSS di cssTemaScuro()
+const LATI: Record<string, string> = { "color": "tc", "background": "tb", "background-color": "tb", "border": "td",
+  "border-top": "tt", "border-right": "tr", "border-bottom": "tbo", "border-left": "tl" };
+function tagga(tutto: string, nome: string, attr: string) {
+  const st = attr.match(/\sstyle="([^"]*)"/);
+  if (!st) return tutto;
+  const classi: string[] = [];
+  for (const dich of st[1].split(";")) {
+    const i = dich.indexOf(":");
+    if (i < 0) continue;
+    const pref = LATI[dich.slice(0, i).trim().toLowerCase()];
+    if (!pref) continue;
+    const hex = (dich.slice(i + 1).match(/#[0-9a-f]{6}/i) || [""])[0].toLowerCase();
+    if (hex && TEMA_SCURO[hex] && TEMA_SCURO[hex] !== hex) classi.push(`${pref}-${hex.slice(1)}`);
+  }
+  if (!classi.length) return tutto;
+  const cl = attr.match(/\sclass="([^"]*)"/);
+  const nuovi = cl ? attr.replace(cl[0], ` class="${cl[1]} ${classi.join(" ")}"`) : `${attr} class="${classi.join(" ")}"`;
+  return `<${nome}${nuovi}>`;
+}
+function cssTemaScuro() {
+  const regole = (pre: string, pb: string) => Object.entries(TEMA_SCURO).map(([chiaro, scuro]) => {
+    const h = chiaro.slice(1);
+    return `${pre}.tc-${h}{color:${scuro}!important}` +
+      `${pb}.tb-${h}{background:${scuro}!important;background-color:${scuro}!important}` +
+      `${pb}.td-${h}{border-color:${scuro}!important}`;
+  }).join("") + Object.entries(TEMA_SCURO).map(([chiaro, scuro]) => {
+    const h = chiaro.slice(1);
+    return `${pb}.tt-${h}{border-top-color:${scuro}!important}${pb}.tr-${h}{border-right-color:${scuro}!important}` +
+      `${pb}.tbo-${h}{border-bottom-color:${scuro}!important}${pb}.tl-${h}{border-left-color:${scuro}!important}`;
+  }).join("");
+  return `@media (prefers-color-scheme:dark){${regole("", "")}.datecol{border-bottom-color:${TEMA_SCURO[LINEA]}!important}}` +
+    regole("[data-ogsc] ", "[data-ogsb] ");
+}
+
 function guscio(preheader: string, contenuto: string, piede: string) {
   return `<!doctype html>
 <html lang="it">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="dark"><meta name="supported-color-schemes" content="dark">
+<meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">
 <title>Mery Drift</title>
 <style>
+  :root{color-scheme:light dark;supported-color-schemes:light dark}
+  ${cssTemaScuro()}
+  u + .body .gm-s{display:inline-block;background:#000;mix-blend-mode:screen}
+  u + .body .gm-d{display:inline-block;background:#000;mix-blend-mode:difference}
   @media (max-width:600px){
     .px{padding-left:20px!important;padding-right:20px!important}
     .h1{font-size:34px!important;line-height:36px!important}
@@ -116,13 +166,13 @@ function guscio(preheader: string, contenuto: string, piede: string) {
   }
 </style>
 </head>
-<body style="margin:0;padding:0;background:${NERO}">
+<body class="body" style="margin:0;padding:0;background:${NERO}">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:${NERO}">${esc(preheader)}&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${NERO}" style="background:${NERO}">
 <tr><td align="center" style="padding:24px 10px 32px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:${ASFALTO};border:1px solid ${LINEA}">
 <tr><td>${cordolo()}</td></tr>
-<tr><td align="center" bgcolor="${NERO}" style="background:${NERO};padding:26px 20px 18px">
+<tr><td align="center" bgcolor="${TESTATA}" style="background:${TESTATA};background-image:linear-gradient(${TESTATA},${TESTATA});padding:26px 20px 18px">
 <a href="${SITO}/" target="_blank"><img src="${SITO}/img/email/logo-mail.png" width="230" alt="MERY DRIFT" style="display:block;width:230px;max-width:70%;height:auto;border:0;font-family:${DISPLAY};font-size:34px;font-weight:900;font-style:italic;color:${ROSA}"></a>
 </td></tr>
 ${contenuto}
@@ -130,7 +180,7 @@ ${contenuto}
 </table>
 ${piede}
 </td></tr></table>
-</body></html>`;
+</body></html>`.replace(/<([a-z][a-z0-9]*)\b([^>]*)>/g, tagga);
 }
 
 const piedePubblico = () => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px">
@@ -149,7 +199,7 @@ export function mailCliente(p: Rec, g: Giornata) {
 <tr><td class="px" style="padding:30px 36px 6px">
 <p style="margin:0 0 8px;font-family:${MONO};font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${ROSA}">✓ Prenotazione confermata</p>
 <h1 class="h1" style="margin:0;font-family:${DISPLAY};font-size:42px;line-height:44px;font-weight:900;font-style:italic;text-transform:uppercase;color:${FUMO}">Ci vediamo<br>in pista, <span style="color:${BLU_CHIARO}">${nomeProprio(String(p.nome))}</span>!</h1>
-<p style="margin:16px 0 0;font-family:${TESTO};font-size:17px;line-height:26px;color:#c9ccd2">Il tuo posto è riservato. Qui sotto trovi tutto quello che ti serve per la giornata.</p>
+<p style="margin:16px 0 0;font-family:${TESTO};font-size:17px;line-height:26px;color:${TESTO_2}">Il tuo posto è riservato. Qui sotto trovi tutto quello che ti serve per la giornata.</p>
 </td></tr>
 
 <tr><td class="px" style="padding:24px 36px 8px">
@@ -162,7 +212,7 @@ export function mailCliente(p: Rec, g: Giornata) {
 <td valign="middle" class="textcol" style="padding:18px 22px">
 <div style="font-family:${MONO};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${CENERE}">${esc(giornoSett(g.data))}</div>
 <div style="font-family:${DISPLAY};font-size:30px;line-height:32px;font-weight:800;text-transform:uppercase;color:${FUMO};margin:4px 0 8px">${esc(g.titolo)}</div>
-<div style="font-family:${TESTO};font-size:16px;line-height:22px;color:#c9ccd2">Orari pista ${ORARI}<br>${LUOGO} · ${PAESE}</div>
+<div style="font-family:${TESTO};font-size:16px;line-height:22px;color:${TESTO_2}">Orari pista ${ORARI}<br>${LUOGO} · ${PAESE}</div>
 </td>
 </tr></table>
 </td></tr>
@@ -184,7 +234,7 @@ ${dueBottoni(pulsante("📅&nbsp; Aggiungi al calendario", linkCalendario(g.data
 
 <tr><td class="px" style="padding:24px 36px 8px">
 <p style="margin:0 0 12px;font-family:${DISPLAY};font-size:24px;font-weight:800;font-style:italic;text-transform:uppercase;color:${FUMO}">Prima di <span style="color:${BLU_CHIARO}">entrare</span></p>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:${TESTO};font-size:16px;line-height:24px;color:#c9ccd2">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:${TESTO};font-size:16px;line-height:24px;color:${TESTO_2}">
 <tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">01</td><td style="padding-bottom:10px">Arriva qualche minuto prima: si parte con il <strong style="color:${FUMO}">briefing di sicurezza</strong>.</td></tr>
 <tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">02</td><td style="padding-bottom:10px">Porta la <strong style="color:${FUMO}">patente</strong>: per guidare servono 18 anni e prima di entrare firmi la <strong style="color:${FUMO}">liberatoria</strong>.</td></tr>
 <tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">03</td><td style="padding-bottom:10px">Meteo e avvisi dell'ultimo minuto nelle <a href="${INSTAGRAM}" style="color:${BLU_CHIARO};font-weight:700;text-decoration:none">storie su Instagram</a>: dai un'occhiata prima di partire.</td></tr>
@@ -193,8 +243,8 @@ ${dueBottoni(pulsante("📅&nbsp; Aggiungi al calendario", linkCalendario(g.data
 </td></tr>
 
 <tr><td class="px" style="padding:20px 36px 32px">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#141a3a;border:1px solid ${BLU}">
-<tr><td style="padding:16px 18px;font-family:${TESTO};font-size:15px;line-height:22px;color:#c9ccd2">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${BOX_BLU};border:1px solid ${BLU}">
+<tr><td style="padding:16px 18px;font-family:${TESTO};font-size:15px;line-height:22px;color:${TESTO_2}">
 <strong style="color:${FUMO}">Non puoi più venire?</strong> Chiamaci al <a href="${TEL_LINK}" style="color:${BLU_CHIARO};font-weight:700;text-decoration:none">${TELEFONO}</a> o rispondi a questa mail: liberiamo il posto e, se avevi già pagato, ti rimborsiamo tutto. <a href="${SITO}/condizioni.html" style="color:${BLU_CHIARO};text-decoration:none">Condizioni</a> · <a href="${SITO}/privacy.html" style="color:${BLU_CHIARO};text-decoration:none">Privacy</a>
 </td></tr></table>
 </td></tr>`;
@@ -236,7 +286,7 @@ export function mailProprietari(p: Rec, g: Giornata, occupati: number) {
 <tr><td class="px" style="padding:28px 36px 4px">
 <p style="margin:0 0 8px;font-family:${MONO};font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${ROSA}">● Nuova prenotazione</p>
 <h1 class="h1" style="margin:0;font-family:${DISPLAY};font-size:42px;line-height:44px;font-weight:900;font-style:italic;text-transform:uppercase;color:${FUMO}">${nome}</h1>
-<p style="margin:10px 0 0;font-family:${TESTO};font-size:19px;line-height:28px;color:#c9ccd2">ha prenotato <strong style="color:${FUMO}">${posti} ${posti === 1 ? "posto" : "posti"}</strong> per <strong style="color:${FUMO}">${esc(dataLunga(g.data))}</strong></p>
+<p style="margin:10px 0 0;font-family:${TESTO};font-size:19px;line-height:28px;color:${TESTO_2}">ha prenotato <strong style="color:${FUMO}">${posti} ${posti === 1 ? "posto" : "posti"}</strong> per <strong style="color:${FUMO}">${esc(dataLunga(g.data))}</strong></p>
 </td></tr>
 
 <tr><td class="px" style="padding:22px 36px 4px">

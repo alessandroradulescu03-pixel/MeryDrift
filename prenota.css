@@ -79,7 +79,7 @@ button.cd.sel i{color:#fff}
 
 /* consenso: maggiore età, patente, condizioni */
 .consent{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--smoke);cursor:pointer;margin-top:4px}
-.consent input{flex:none;width:22px;height:22px;margin-top:1px;accent-color:var(--kerb)}
+.consent input{flex:none;width:22px;height:22px;margin:1px 0 0;padding:0;border:0;background:none;-webkit-appearance:auto;appearance:auto;accent-color:var(--kerb);cursor:pointer}
 .consent a,.privacy-note a{color:var(--blue-hi)}
 .privacy-note{font-size:13px;color:var(--ash);margin:-4px 0 0}
 .pick-kv small,.sum-total small{font-size:.75em;letter-spacing:.06em;color:var(--ash);font-family:var(--font-mono);text-transform:uppercase}

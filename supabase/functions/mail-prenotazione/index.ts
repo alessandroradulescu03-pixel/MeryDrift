@@ -186,14 +186,16 @@ ${dueBottoni(pulsante("📅&nbsp; Aggiungi al calendario", linkCalendario(g.data
 <p style="margin:0 0 12px;font-family:${DISPLAY};font-size:24px;font-weight:800;font-style:italic;text-transform:uppercase;color:${FUMO}">Prima di <span style="color:${BLU_CHIARO}">entrare</span></p>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:${TESTO};font-size:16px;line-height:24px;color:#c9ccd2">
 <tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">01</td><td style="padding-bottom:10px">Arriva qualche minuto prima: si parte con il <strong style="color:${FUMO}">briefing di sicurezza</strong>.</td></tr>
-<tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">02</td><td>Amici e parenti che vogliono guardare entrano <strong style="color:${FUMO}">gratis</strong>.</td></tr>
+<tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">02</td><td style="padding-bottom:10px">Porta la <strong style="color:${FUMO}">patente</strong>: per guidare servono 18 anni e prima di entrare firmi la <strong style="color:${FUMO}">liberatoria</strong>.</td></tr>
+<tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">03</td><td style="padding-bottom:10px">Meteo e avvisi dell'ultimo minuto nelle <a href="${INSTAGRAM}" style="color:${BLU_CHIARO};font-weight:700;text-decoration:none">storie su Instagram</a>: dai un'occhiata prima di partire.</td></tr>
+<tr><td width="34" valign="top" style="font-family:${DISPLAY};font-size:20px;font-weight:900;font-style:italic;color:${ROSA}">04</td><td>Amici e parenti che vogliono guardare entrano <strong style="color:${FUMO}">gratis</strong>.</td></tr>
 </table>
 </td></tr>
 
 <tr><td class="px" style="padding:20px 36px 32px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#141a3a;border:1px solid ${BLU}">
 <tr><td style="padding:16px 18px;font-family:${TESTO};font-size:15px;line-height:22px;color:#c9ccd2">
-<strong style="color:${FUMO}">Non puoi più venire?</strong> Chiamaci al <a href="${TEL_LINK}" style="color:${BLU_CHIARO};font-weight:700;text-decoration:none">${TELEFONO}</a> così liberiamo il posto per qualcun altro. Per qualsiasi domanda puoi anche rispondere a questa mail.
+<strong style="color:${FUMO}">Non puoi più venire?</strong> Chiamaci al <a href="${TEL_LINK}" style="color:${BLU_CHIARO};font-weight:700;text-decoration:none">${TELEFONO}</a> o rispondi a questa mail: liberiamo il posto e, se avevi già pagato, ti rimborsiamo tutto. <a href="${SITO}/condizioni.html" style="color:${BLU_CHIARO};text-decoration:none">Condizioni</a> · <a href="${SITO}/privacy.html" style="color:${BLU_CHIARO};text-decoration:none">Privacy</a>
 </td></tr></table>
 </td></tr>`;
   const html = guscio(`${posti} ${posti === 1 ? "posto confermato" : "posti confermati"} per ${dataLunga(g.data)} · ${g.titolo}`, contenuto, piedePubblico());
@@ -211,7 +213,12 @@ Dove: ${LUOGO}, ${PAESE}
 Mappa: ${MAPPA}
 
 Arriva qualche minuto prima per il briefing di sicurezza.
-Non puoi più venire? Chiamaci al ${TELEFONO}.
+Porta la patente: per guidare servono 18 anni e prima di entrare firmi la liberatoria.
+Meteo e avvisi dell'ultimo minuto nelle storie su Instagram @merydrift.
+Non puoi più venire? Chiamaci al ${TELEFONO}: liberiamo il posto e, se avevi già pagato, ti rimborsiamo tutto.
+
+Condizioni: ${SITO}/condizioni.html
+Privacy: ${SITO}/privacy.html
 
 Mery Drift · Instagram @merydrift`;
   return { html, testo, oggetto: `✓ Prenotazione confermata · ${dataLunga(g.data)}` };

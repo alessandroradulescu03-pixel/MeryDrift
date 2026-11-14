@@ -6,9 +6,7 @@
 <title>Prenota · Mery Drift</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Scegli la giornata dal calendario e blocca il tuo posto in pista.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="prenota.css">
 </head>
@@ -36,7 +34,7 @@
         <p class="eyebrow">Calendario</p>
         <h2>Scegli la<br><span class="slant">tua data</span></h2>
       </div>
-      <p class="lead">Le giornate in programma con i posti ancora liberi, aggiornati in tempo reale.</p>
+      <p class="lead">Le giornate in programma con i posti ancora liberi, aggiornati in tempo reale. Meteo e avvisi dell'ultimo minuto: guarda le storie su <a href="https://www.instagram.com/merydrift/" target="_blank" rel="noopener">Instagram @merydrift</a>.</p>
     </div>
 
     <div class="cal-grid">
@@ -70,7 +68,7 @@
             <p class="eyebrow">Data scelta</p>
             <h3 id="pkDate"></h3>
             <div class="pick-kv">
-              <div><span>Prezzo a persona</span><b id="pkPrice"></b></div>
+              <div><span>Prezzo a persona <small>IVA incl.</small></span><b id="pkPrice"></b></div>
               <div><span>Posti liberi</span><b id="pkSeats"></b></div>
             </div>
           </div>
@@ -106,8 +104,13 @@
 
           <div class="summary">
             <div class="sum-head"><span>Riepilogo</span><span id="sumCalc"></span></div>
-            <div class="sum-total"><span>Totale</span><b id="sumTot"></b></div>
+            <div class="sum-total"><span>Totale <small>IVA inclusa</small></span><b id="sumTot"></b></div>
           </div>
+
+          <label class="consent"><input type="checkbox" id="f-ok" required>
+            <span>Ho almeno <b>18 anni</b> e la <b>patente valida</b>, so che in pista firmerò la liberatoria e accetto le <a href="condizioni.html" target="_blank">condizioni di prenotazione</a>.</span>
+          </label>
+          <p class="privacy-note">I tuoi dati servono solo per gestire la prenotazione. Leggi l'<a href="privacy.html" target="_blank">informativa privacy</a>.</p>
 
           <p class="err" id="prenErr" role="alert" hidden></p>
           <button type="submit" class="btn" id="prenBtn">Conferma prenotazione</button>
@@ -129,7 +132,7 @@
   <ol class="steps cal-steps">
     <li><div><strong>Scegli la data</strong>Nel calendario vedi le giornate aperte e quanti posti restano.</div></li>
     <li><div><strong>Lascia i tuoi dati</strong>Nome, email e telefono: il posto è subito tuo.</div></li>
-    <li><div><strong>Vieni in pista</strong>Presentati al circuito Mxe.45 di Covo per il briefing prima di entrare.</div></li>
+    <li><div><strong>Vieni in pista</strong>Presentati al circuito Mxe.45 di Covo con la patente: firmi la liberatoria e fai il briefing prima di entrare.</div></li>
   </ol>
 </div></section>
 
@@ -141,7 +144,8 @@
       <div><h4>Pagine</h4><a href="./">Home</a><a href="pista.html">La pista</a><a href="scuola.html">Scuola</a><a href="noleggio.html">Noleggio</a><a href="prenota.html">Prenota</a><a href="orari.html">Orari e mappa</a></div><div><h4>Pista</h4><p>Circuito Mxe.45</p><p style="color:var(--ash)">Covo (BG)</p></div>
       <div><h4>Contatti e social</h4><a href="tel:+393401020863">Tel. 340 102 0863</a><a href="https://www.instagram.com/merydrift/" target="_blank" rel="noopener">Instagram @merydrift</a><a href="https://www.instagram.com/mxe.45/" target="_blank" rel="noopener">Circuito @mxe.45</a></div>
     </div>
-    <div class="copy"><span>© 2026 Mery Drift</span><span>In collaborazione con Padania Tuning</span></div>
+    <div class="legal-bar"><span>© 2026 Mery Drift · <b data-legal>[RAGIONE SOCIALE]</b> · P.IVA <b data-legal>[00000000000]</b> · Sede legale <b data-legal>[via, n., CAP, comune]</b> · REA <b data-legal>[BG-000000]</b> · <a href="mailto:[email@dominio.it]" data-legal>[email@dominio.it]</a></span></div>
+    <div class="copy"><span><a href="privacy.html">Privacy</a> · <a href="condizioni.html">Condizioni di prenotazione</a></span><span>In collaborazione con Padania Tuning</span></div>
   </div>
 </footer>
 <div class="mbar"><a href="pista.html#accessi" class="btn ghost">Prezzi</a><a href="https://www.instagram.com/merydrift/" class="btn" target="_blank" rel="noopener">Contattaci</a></div>

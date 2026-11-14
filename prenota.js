@@ -91,13 +91,15 @@
       var ds=vista.y+'-'+pad(vista.m+1)+'-'+pad(d),gs=perData[ds],c;
       if(gs){
         var liberi=gs.reduce(function(s,g){return s+Math.max(0,g.posti_liberi);},0);
-        c=el('button','cd'+(liberi<=0?' full':liberi<=POCHI?' few':''));c.type='button';
+        var tutteChiuse=gs.every(function(g){return g.chiusa;});
+        c=el('button','cd'+(tutteChiuse?' full closed':liberi<=0?' full':liberi<=POCHI?' few':''));c.type='button';
         c.appendChild(el('b',null,d));
         var lab=el('i');
-        if(liberi<=0)lab.textContent='Pieno';
+        if(tutteChiuse)lab.textContent='Chiusa';
+        else if(liberi<=0)lab.textContent='Pieno';
         else{lab.textContent=liberi;lab.appendChild(el('span','w',liberi===1?' posto':' posti'));}
         c.appendChild(lab);
-        c.setAttribute('aria-label',lunga(ds)+', '+gs[0].titolo+', '+(liberi<=0?'completo':liberi+(liberi===1?' posto libero':' posti liberi')));
+        c.setAttribute('aria-label',lunga(ds)+', '+gs[0].titolo+', '+(tutteChiuse?'chiusa: '+(gs[0].motivo_chiusura||''):liberi<=0?'completo':liberi+(liberi===1?' posto libero':' posti liberi')));
         if(sel&&sel.data===ds){c.classList.add('sel');c.setAttribute('aria-pressed','true');}
         (function(ds){c.addEventListener('click',function(){scegliData(ds,true);});})(ds);
       }else{
@@ -120,12 +122,12 @@
     var ul=$('calList');ul.textContent='';
     $('calNextWrap').hidden=!giornate.length;
     giornate.slice(0,8).forEach(function(g){
-      var p=parts(g.data),li=el('li'),b=el('button',g.posti_liberi<=0?'full':null);b.type='button';
+      var p=parts(g.data),li=el('li'),b=el('button',g.chiusa?'full closed':g.posti_liberi<=0?'full':null);b.type='button';
       if(sel&&sel.id===g.id)b.classList.add('sel');
       var d=el('span','d',p.d);d.appendChild(el('small',null,MESI_S[p.m]));
       b.appendChild(d);
       b.appendChild(el('span','t',g.titolo));
-      b.appendChild(el('span','m',euro(g.prezzo_cent)+' · '+(g.posti_liberi<=0?'completo':g.posti_liberi+(g.posti_liberi===1?' posto':' posti'))));
+      b.appendChild(el('span','m',g.chiusa?'Chiusa · '+g.motivo_chiusura:euro(g.prezzo_cent)+' · '+(g.posti_liberi<=0?'completo':g.posti_liberi+(g.posti_liberi===1?' posto':' posti'))));
       b.addEventListener('click',function(){scegli(g,true);});
       li.appendChild(b);ul.appendChild(li);
     });
@@ -151,6 +153,20 @@
   // ---------- pannello e form ----------
   function pannello(){
     var f=$('prenForm'),vuoto=$('pickEmpty');
+    var nota=$('pickClosed');if(nota)nota.remove();
+    if(sel&&sel.chiusa){
+      f.hidden=true;vuoto.hidden=false;
+      vuoto.querySelector('h3').textContent='Giornata chiusa';
+      vuoto.querySelector('p:last-child').textContent='Il '+lunga(sel.data)+' la pista è chiusa. Scegli un\'altra data dal calendario.';
+      nota=el('div','closed-note');nota.id='pickClosed';
+      nota.appendChild(el('b',null,'Motivo'));
+      nota.appendChild(el('p',null,sel.motivo_chiusura));
+      var ig=el('p');ig.appendChild(document.createTextNode('Avvisi e nuove date nelle storie su '));
+      var a=el('a',null,'Instagram @merydrift');a.href='https://www.instagram.com/merydrift/';a.target='_blank';a.rel='noopener';
+      ig.appendChild(a);nota.appendChild(ig);
+      vuoto.appendChild(nota);
+      return;
+    }
     if(!sel||sel.posti_liberi<=0){
       f.hidden=true;vuoto.hidden=false;
       vuoto.querySelector('h3').textContent=sel?'Giornata completa':'Tocca una data';
@@ -167,9 +183,9 @@
     var gs=perData[sel.data]||[],fs=$('pkTurni'),row=$('pkTurniRow');
     row.textContent='';fs.hidden=gs.length<2;
     if(gs.length>1)gs.forEach(function(g){
-      var l=el('label','chip'),i=el('input');i.type='radio';i.name='turno';i.checked=g.id===sel.id;i.disabled=g.posti_liberi<=0;
+      var l=el('label','chip'),i=el('input');i.type='radio';i.name='turno';i.checked=g.id===sel.id;i.disabled=g.chiusa||g.posti_liberi<=0;
       i.addEventListener('change',function(){scegli(g,false);});
-      l.appendChild(i);l.appendChild(el('span',null,g.titolo+(g.posti_liberi<=0?' (completo)':'')));row.appendChild(l);
+      l.appendChild(i);l.appendChild(el('span',null,g.titolo+(g.chiusa?' (chiuso)':g.posti_liberi<=0?' (completo)':'')));row.appendChild(l);
     });
     conti();
   }
@@ -193,6 +209,7 @@
     if(nome.length<3){errore('Scrivi nome e cognome.');$('f-nome').focus();return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){errore('Controlla l\'indirizzo email.');$('f-email').focus();return;}
     if(tel.replace(/\D/g,'').length<8){errore('Controlla il numero di telefono.');$('f-tel').focus();return;}
+    if(!$('f-ok').checked){errore('Per prenotare devi avere 18 anni e la patente: spunta la casella e accetta le condizioni.');$('f-ok').focus();return;}
     var btn=$('prenBtn'),testo=btn.textContent;
     btn.disabled=true;btn.textContent='Un attimo…';
     function fine(){btn.disabled=false;btn.textContent=testo;}

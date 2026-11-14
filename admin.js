@@ -72,7 +72,7 @@
   async function carica(){
     $('adMsg').textContent='Sto caricando le prenotazioni…';
     var r=await sb.from('giornate')
-      .select('id,data,titolo,posti_totali,prezzo_cent,attiva,prenotazioni(id,nome,email,telefono,posti,stato,scade_il,pagato_in_pista,creata_il)')
+      .select('id,data,titolo,posti_totali,prezzo_cent,attiva,motivo_chiusura,prenotazioni(id,nome,email,telefono,posti,stato,scade_il,pagato_in_pista,creata_il)')
       .order('data',{ascending:true});
     if(r.error){$('adMsg').textContent='Non riesco a caricare. Controlla internet e premi "Aggiorna".';return;}
     dati=r.data||[];
@@ -116,8 +116,14 @@
 
     if(!g.attiva){
       var chiusa=el('div','ad-closed');
-      chiusa.appendChild(el('p',null,'Prenotazioni chiuse: dal sito non si può prenotare questa giornata.'));
-      chiusa.appendChild(btn('ad-btn','Riapri le prenotazioni',function(){salvaGiornata(g,{attiva:true},'Prenotazioni riaperte');}));
+      if(g.motivo_chiusura){
+        chiusa.appendChild(el('p',null,'Giornata chiusa. Sul sito la gente vede: «Chiusa · '+g.motivo_chiusura+'».'));
+      }else{
+        chiusa.appendChild(el('p',null,'Prenotazioni chiuse: sul sito questa giornata non si vede.'));
+      }
+      var vive=g.prenotazioni.filter(function(x){return x.stato==='confermata'||x.stato==='pagata';});
+      if(vive.length)chiusa.appendChild(btn('ad-btn','✉️  Avvisa le '+vive.length+' persone prenotate',function(){avvisa(g,vive);}));
+      chiusa.appendChild(btn('ad-btn','Riapri le prenotazioni',function(){salvaGiornata(g,{attiva:true,motivo_chiusura:null},'Prenotazioni riaperte');}));
       card.appendChild(chiusa);
     }
 
@@ -219,10 +225,26 @@
     f.appendChild(row);
 
     var extra=el('div','ad-edit-extra');
-    if(g.attiva)extra.appendChild(btn('ad-link','Chiudi le prenotazioni di questa giornata',function(){
-      if(!confirm('Chiudere le prenotazioni? Dal sito nessuno potrà più prenotare questa giornata.'))return;
-      salvaGiornata(g,{attiva:false},'Prenotazioni chiuse');
-    }));
+    if(g.attiva){
+      var scelte=el('div','ad-chiudi');scelte.hidden=true;
+      scelte.appendChild(el('p','ad-chiudi-q','Perché chiudi? La gente vedrà il motivo sul calendario del sito.'));
+      function chiudi(motivo){
+        inModifica[g.id]=false;
+        salvaGiornata(g,{attiva:false,motivo_chiusura:motivo},motivo?'Giornata chiusa: '+motivo:'Prenotazioni chiuse');
+      }
+      ['🌧  Pioggia','🚧  Pista non agibile','🔧  Lavori in pista'].forEach(function(t){
+        scelte.appendChild(btn('ad-btn',t,function(){chiudi(t.replace(/^\S+\s+/,''));}));
+      });
+      scelte.appendChild(btn('ad-btn','✏️  Scrivo io il motivo',function(){
+        var m=prompt('Scrivi il motivo della chiusura (es. "Evento privato"):','');
+        if(m&&m.trim())chiudi(m.trim().slice(0,80));
+      }));
+      scelte.appendChild(btn('ad-link','Chiudi senza dire niente (la giornata sparisce dal sito)',function(){
+        if(confirm('Chiudere senza motivo? Sul sito la giornata non si vedrà più.'))chiudi(null);
+      }));
+      extra.appendChild(btn('ad-link','Chiudi questa giornata (pioggia, pista non agibile…)',function(){scelte.hidden=!scelte.hidden;}));
+      extra.appendChild(scelte);
+    }
     if(!g.prenotazioni.length)extra.appendChild(btn('ad-link danger','Elimina questa giornata',function(){elimina(g);}));
     f.appendChild(extra);
 
@@ -246,6 +268,16 @@
     Object.keys(campi).forEach(function(k){g[k]=campi[k];});
     disegna();toast(ok);
   }
+  // email a tutti i prenotati di una giornata chiusa (si apre il programma di posta)
+  function avvisa(g,lista){
+    var bcc=lista.map(function(x){return x.email;}).filter(Boolean).join(',');
+    var ogg='Mery Drift · '+giorno(g.data)+': giornata chiusa';
+    var testo='Ciao,\n\npurtroppo la giornata di '+giornoAnno(g.data)+' ('+g.titolo+') è chiusa'+(g.motivo_chiusura?': '+g.motivo_chiusura.toLowerCase():'')+'.\n\n'+
+      'Se avevi già pagato ti rimborsiamo tutto, oppure ti spostiamo su un\'altra data: rispondi a questa mail o chiamaci al 340 102 0863.\n\n'+
+      'Avvisi e nuove date nelle storie su Instagram @merydrift.\n\nA presto in pista!\nMery Drift';
+    location.href='mailto:?bcc='+encodeURIComponent(bcc)+'&subject='+encodeURIComponent(ogg)+'&body='+encodeURIComponent(testo);
+  }
+
   async function elimina(g){
     if(!confirm('Vuoi davvero eliminare la giornata di '+giorno(g.data)+'?'))return;
     var r=await sb.from('giornate').delete().eq('id',g.id);

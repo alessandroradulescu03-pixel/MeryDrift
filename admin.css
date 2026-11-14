@@ -108,3 +108,8 @@
   .ad-print td:last-child,.ad-print th:last-child{text-align:center;width:60pt;font-size:16pt}
   .ad-print td:first-child,.ad-print th:first-child{width:28pt}
 }
+
+/* scelta del motivo di chiusura */
+.ad-chiudi{flex-basis:100%;display:flex;flex-wrap:wrap;gap:10px;background:rgba(255,198,92,.08);border:2px solid #ffc65c;padding:14px 16px}
+.ad-chiudi[hidden]{display:none}
+.ad-chiudi-q{flex-basis:100%;margin:0;font-weight:600}

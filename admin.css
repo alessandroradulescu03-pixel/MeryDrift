@@ -113,3 +113,12 @@
 .ad-chiudi{flex-basis:100%;display:flex;flex-wrap:wrap;gap:10px;background:rgba(255,198,92,.08);border:2px solid #ffc65c;padding:14px 16px}
 .ad-chiudi[hidden]{display:none}
 .ad-chiudi-q{flex-basis:100%;margin:0;font-weight:600}
+
+/* ricerca cliente */
+.ad-search{margin:6px 0 22px;display:grid;gap:8px}
+.ad-search label{font-weight:700;font-size:19px}
+.ad-search-row{display:flex;gap:10px;align-items:stretch}
+.ad-search-row input{flex:1;min-width:0;font-size:20px;padding:16px 18px;border:2px solid #3a3a46}
+.ad-search-row input:focus{border-color:var(--kerb)}
+.ad-search-row input::-webkit-search-cancel-button{display:none}
+.ad-search-row .ad-btn[hidden]{display:none}

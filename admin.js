@@ -38,7 +38,14 @@
   var toastT;
   function toast(msg,ko){var t=$('adToast');t.textContent=msg;t.className='ad-toast'+(ko?' ko':'');t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true;},3500);}
 
-  var dati=[],passate=false,inModifica={},TODAY=oggi();
+  var dati=[],passate=false,inModifica={},TODAY=oggi(),cerca='';
+  // ricerca: senza maiuscole e senza accenti, sul nome o sul telefono
+  function pulito(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();}
+  function trovato(x){
+    if(!cerca)return true;
+    var q=pulito(cerca),cifre=cerca.replace(/\D/g,'');
+    return pulito(x.nome).indexOf(q)>-1||(cifre.length>=3&&String(x.telefono||'').replace(/\D/g,'').indexOf(cifre)>-1);
+  }
 
   // ---------- accesso ----------
   function mostra(v){$('adLogin').hidden=v!=='login';$('adApp').hidden=v!=='app';$('adOut').hidden=v!=='app';}
@@ -65,7 +72,8 @@
   });
   $('adOut').addEventListener('click',async function(){
     if(!confirm('Vuoi uscire?'))return;
-    await sb.auth.signOut();dati=[];$('adDays').textContent='';mostra('login');
+    await sb.auth.signOut();dati=[];$('adDays').textContent='';
+    location.href='../'; // torna alla home del sito
   });
 
   // ---------- dati ----------
@@ -82,11 +90,20 @@
   }
 
   function disegna(){
-    var lista=passate
+    var lista=cerca
+      ?dati.filter(function(g){return g.data>=TODAY&&g.prenotazioni.some(trovato);}).concat(dati.filter(function(g){return g.data<TODAY&&g.prenotazioni.some(trovato);}).reverse())
+      :passate
       ?dati.filter(function(g){return g.data<TODAY;}).reverse()
       :dati.filter(function(g){return g.data>=TODAY;});
     $('btnPassate').textContent=passate?'← Torna alle prossime giornate':'Vedi le giornate passate';
+    $('btnPassate').parentNode.hidden=!!cerca;
     var box=$('adDays');box.textContent='';
+    if(cerca){
+      var n=lista.reduce(function(s,g){return s+g.prenotazioni.filter(trovato).length;},0);
+      $('adMsg').textContent=n?('Trovate '+n+(n===1?' prenotazione':' prenotazioni')+' per «'+cerca.trim()+'» (anche nelle giornate passate)'):'Nessun cliente trovato con «'+cerca.trim()+'». Controlla come l\'hai scritto.';
+      lista.forEach(function(g){box.appendChild(scheda(g));});
+      return;
+    }
     if(!lista.length){
       $('adMsg').textContent=passate?'Non ci sono giornate passate.':'Non ci sono giornate in programma. Premi "+ Aggiungi una giornata" per crearne una.';
       return;
@@ -128,23 +145,24 @@
     }
 
     // persone
-    var valide=g.prenotazioni.filter(function(x){return x.stato==='confermata'||x.stato==='pagata';});
-    var annullate=g.prenotazioni.filter(function(x){return x.stato==='annullata';});
+    var valide=g.prenotazioni.filter(function(x){return (x.stato==='confermata'||x.stato==='pagata')&&trovato(x);});
+    var annullate=g.prenotazioni.filter(function(x){return x.stato==='annullata'&&trovato(x);});
     if(!valide.length){
-      card.appendChild(el('p','ad-empty','Ancora nessuna prenotazione.'));
+      card.appendChild(el('p','ad-empty',cerca?'Nessuna prenotazione attiva con questo nome: guarda tra le annullate qui sotto.':'Ancora nessuna prenotazione.'));
     }else{
       var ul=el('ul','ad-people');
       valide.forEach(function(x){ul.appendChild(persona(g,x));});
       card.appendChild(ul);
-      var daInc=valide.filter(function(x){return !pagata(x);}).reduce(function(s,x){return s+x.posti*g.prezzo_cent;},0);
+      if(!cerca){var daInc=valide.filter(function(x){return !pagata(x);}).reduce(function(s,x){return s+x.posti*g.prezzo_cent;},0);
       var inc=el('p','ad-money');
       inc.appendChild(document.createTextNode(daInc?'Ancora da incassare: ':'Hanno pagato tutti '));
       inc.appendChild(el('b',null,daInc?euro(daInc):'✓'));
-      card.appendChild(inc);
+      card.appendChild(inc);}
     }
     if(annullate.length){
       var dt=el('details','ad-cancelled');
       dt.appendChild(el('summary',null,'Prenotazioni annullate ('+annullate.length+')'));
+      if(cerca&&!valide.length)dt.open=true;
       var ula=el('ul');
       annullate.forEach(function(x){ula.appendChild(el('li',null,x.nome+' · '+posti(x.posti)+' · '+(x.telefono||'')));});
       dt.appendChild(ula);card.appendChild(dt);
@@ -336,6 +354,15 @@
     setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
     toast('File scaricato: lo trovi nella cartella Download');
   }
+
+  var cercaT;
+  $('cerca').addEventListener('input',function(){
+    var v=this.value;$('cercaVia').hidden=!v;
+    clearTimeout(cercaT);cercaT=setTimeout(function(){cerca=v.trim()?v:'';disegna();},200);
+  });
+  $('cercaVia').addEventListener('click',function(){
+    $('cerca').value='';cerca='';this.hidden=true;disegna();$('cerca').focus();
+  });
 
   $('btnAggiorna').addEventListener('click',function(){carica().then(function(){toast('Aggiornato ✓');});});
   $('btnPassate').addEventListener('click',function(){passate=!passate;disegna();window.scrollTo({top:0,behavior:'smooth'});});
